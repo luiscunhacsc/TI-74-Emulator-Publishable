@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="en-US">
+<html lang="pt-PT">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
-<meta name="description" content="Offline Texas Instruments TI-74 BASICALC emulator. A single HTML file with no dependencies. US English edition.">
-<title>TI-74 BASICALC · Emulator (US English)</title>
+<meta name="description" content="Emulador local da Texas Instruments TI-74 BASICALC. Um único HTML, sem dependências.">
+<title>TI-74 BASICALC · Emulador</title>
 <style>
 :root{--paper:#f4f2eb;--ink:#282c2c;--muted:#717773;--line:#d6d9ce;--green:#365f48;--cyan:#6ec6d4;--gold:#dfc35f;--mono:Consolas,'Courier New',monospace}
 *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.55 system-ui,-apple-system,'Segoe UI',sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.42}button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,summary:focus-visible{outline:3px solid #558b70;outline-offset:4px}button{border:1px solid var(--line);background:transparent;color:inherit;border-radius:5px;padding:9px 15px;transition:background .15s}button:hover:not(:disabled){background:#e7e9df}a{color:var(--green);text-underline-offset:3px}.primary{background:var(--green);border-color:var(--green);color:#fff}.primary:hover:not(:disabled){background:#294c38}.quiet{border-color:transparent}.mono{font-family:var(--mono)}.eyebrow{font:11px var(--mono);letter-spacing:2px;text-transform:uppercase;color:var(--muted)}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
@@ -28,98 +28,98 @@ dialog{border:1px solid #b9c3b0;border-radius:10px;max-width:610px;width:calc(10
 </style>
 </head>
 <body>
-<header class="topbar"><div class="brand"><span class="brand-mark" aria-hidden="true">74</span> POCKET COMPUTER LAB</div><div class="top-meta">TEXAS INSTRUMENTS · 1985</div></header>
+<header class="topbar"><div class="brand"><span class="brand-mark" aria-hidden="true">74</span> POCKET COMPUTER LAB</div><div class="top-meta">BASICALC · 1985</div></header>
 <main>
-  <section class="intro"><div><div class="eyebrow">A machine from another era</div><h1>TI-74 BASICALC</h1><p>Scientific calculator. BASIC computer. Now in your browser.</p></div><span class="version">EXPERIMENTAL EMULATOR / v0.1 · EN-US</span></section>
-  <div class="toolbar"><div class="status" role="status"><span id="status-dot" class="status-dot"></span><span id="status-text">Waiting for ROMs</span></div><div class="actions"><label class="speed-label">Speed <select id="speed" aria-label="Emulation speed"><option value="0.25">¼×</option><option value="0.5">½×</option><option value="1" selected>1×</option><option value="2">2×</option><option value="4">4×</option></select></label><button id="pause" disabled>Pause</button><button id="open-roms">Load ROMs</button></div></div>
-  <div class="instrument-scroll" tabindex="0" aria-label="TI-74 calculator; scroll horizontally on small screens">
-    <section class="instrument" aria-label="TI-74 calculator panel">
-      <div class="instrument-brand"><span>TEXAS INSTRUMENTS</span><strong>TI-74 BASICALC</strong><span class="badge">BASIC LANGUAGE / SCIENTIFIC CALCULATOR</span></div>
+  <section class="intro"><div><div class="eyebrow">Uma máquina de outra era</div><h1>TI-74 BASICALC</h1><p>Calculadora científica. Computador BASIC. Agora, no teu navegador.</p></div><span class="version">EMULADOR EXPERIMENTAL / v0.1</span></section>
+  <div class="toolbar"><div class="status" role="status"><span id="status-dot" class="status-dot"></span><span id="status-text">À espera das ROMs</span></div><div class="actions"><label class="speed-label">Velocidade <select id="speed" aria-label="Velocidade de execução"><option value="0.25">¼×</option><option value="0.5">½×</option><option value="1" selected>1×</option><option value="2">2×</option><option value="4">4×</option></select></label><button id="pause" disabled>Pausar</button><button id="open-roms">Carregar ROMs</button></div></div>
+  <div class="instrument-scroll" tabindex="0" aria-label="Calculadora TI-74; desloca horizontalmente em ecrãs pequenos">
+    <section class="instrument" aria-label="Painel da calculadora TI-74">
+      <div class="instrument-brand"><strong>BASICALC</strong><span class="badge">BASIC LANGUAGE / SCIENTIFIC CALCULATOR</span></div>
       <div class="display-panel"><div class="display-bezel"><div class="lcd-glass">
         <div class="annunciators" id="indicators-top" aria-hidden="true"></div>
-        <canvas id="lcd" width="1122" height="60" role="img" aria-label="LCD display off"></canvas>
+        <canvas id="lcd" width="1122" height="60" role="img" aria-label="Visor LCD desligado"></canvas>
         <div class="annunciators bottom" id="indicators-bottom" aria-hidden="true"></div>
       </div></div><div class="speaker" aria-hidden="true"><span>8K CONSTANT MEMORY</span></div></div>
       <div class="device-mode">BASIC</div>
       <div class="keyboard"><div class="alpha" id="alpha"></div><div class="numpad" id="numpad"></div></div>
     </section>
   </div>
-  <div class="hint"><span>Use your keyboard, mouse, or touchscreen. <span class="mobile-tip">Swipe to see all keys →</span></span><span class="desktop-tip"><kbd>F2</kbd> MODE &nbsp; <kbd>Esc</kbd> BREAK &nbsp; <kbd>F4</kbd> RUN &nbsp; <kbd>F8</kbd> ON</span></div>
+  <div class="hint"><span>Teclado físico, rato ou toque. <span class="mobile-tip">Desliza para ver todas as teclas →</span></span><span class="desktop-tip"><kbd>F2</kbd> MODE &nbsp; <kbd>Esc</kbd> BREAK &nbsp; <kbd>F4</kbd> RUN &nbsp; <kbd>F8</kbd> ON</span></div>
   <div id="notice" class="notice" role="status" aria-live="polite"></div>
-  <section class="welcome" id="welcome"><div><strong>Start with the two ROMs from your TI-74.</strong><p>Files are processed in this browser. You can also run the hardware diagnostic without ROMs.</p></div><div class="actions"><button id="diagnostic">Test hardware</button><button id="welcome-roms" class="primary">Select ROMs →</button></div></section>
+  <section class="welcome" id="welcome"><div><strong>Começa pelas duas ROMs da tua TI-74.</strong><p>Os ficheiros são processados neste navegador. Também podes experimentar o diagnóstico sem ROMs.</p></div><div class="actions"><button id="diagnostic">Testar hardware</button><button id="welcome-roms" class="primary">Selecionar ROMs →</button></div></section>
   <section class="library" aria-labelledby="library-heading">
-    <div class="library-head"><h2 id="library-heading">BASIC Library</h2><p>From your first PRINT to subprograms. Explore the code, predict the results, and try it on the TI-74.</p>
-      <div class="library-filters"><label>Search examples<input id="library-search" type="search" placeholder="Name, command, or topic…" autocomplete="off"></label><label>Topic<select id="library-category"><option value="">All topics</option></select></label><span id="library-count" class="library-count" role="status"></span></div>
+    <div class="library-head"><h2 id="library-heading">Biblioteca BASIC</h2><p>Do primeiro PRINT aos subprogramas. Explora o código, prevê o resultado e experimenta na TI-74.</p>
+      <div class="library-filters"><label>Procurar exemplos<input id="library-search" type="search" placeholder="Nome, comando ou tema…" autocomplete="off"></label><label>Tema<select id="library-category"><option value="">Todos os temas</option></select></label><span id="library-count" class="library-count" role="status"></span></div>
     </div>
-    <div class="library-body"><nav id="library-list" class="library-list" aria-label="BASIC examples"></nav>
+    <div class="library-body"><nav id="library-list" class="library-list" aria-label="Exemplos BASIC"></nav>
       <article id="library-detail" class="library-detail" aria-labelledby="example-title">
-        <h3 id="example-title"></h3><p id="example-summary"></p><div id="example-concepts" class="library-tags" aria-label="Syntax covered"></div>
-        <div class="editor-actions"><button id="load-example" class="primary">Copy to editor</button><button id="download-example">Save example .bas</button></div>
-        <pre class="library-code" tabindex="0" aria-label="Example code"><code id="example-code"></code></pre>
-        <h4>How to run</h4><p id="example-instructions"></p>
-        <div class="library-result"><h4>Expected output</h4><p id="example-expected"></p></div>
-        <h4>What to look for</h4><ul id="example-notes"></ul><h4>Try it</h4><p id="example-experiment"></p>
-      </article><p id="library-empty" class="library-empty" hidden>No examples match your search. Try another command or topic.</p>
+        <h3 id="example-title"></h3><p id="example-summary"></p><div id="example-concepts" class="library-tags" aria-label="Sintaxe demonstrada"></div>
+        <div class="editor-actions"><button id="load-example" class="primary">Copiar para o bloco</button><button id="download-example">Guardar exemplo .bas</button></div>
+        <pre class="library-code" tabindex="0" aria-label="Código do exemplo"><code id="example-code"></code></pre>
+        <h4>Como executar</h4><p id="example-instructions"></p>
+        <div class="library-result"><h4>Resultado esperado</h4><p id="example-expected"></p></div>
+        <h4>O que observar</h4><ul id="example-notes"></ul><h4>Experimenta</h4><p id="example-experiment"></p>
+      </article><p id="library-empty" class="library-empty" hidden>Nenhum exemplo corresponde à pesquisa. Experimenta outro comando ou tema.</p>
     </div>
-    <div class="library-foot">Original examples for this emulator, available offline. Syntax reference: <a href="https://es.scribd.com/document/500278634/TI-74-Programming-Reference-Guide" target="_blank" rel="noopener">TI-74 Programming Reference Guide</a>. Each example is a standalone program.</div>
+    <div class="library-foot">Exemplos originais para este emulador, disponíveis offline. Referência de sintaxe: <a href="https://es.scribd.com/document/500278634/TI-74-Programming-Reference-Guide" target="_blank" rel="noopener">TI-74 Programming Reference Guide</a>. Cada exemplo é um programa independente.</div>
   </section>
   <section class="workspace" id="program-workspace">
-    <div class="panel"><div class="panel-title"><h2>Program editor</h2><small>BASIC / TEXT</small></div>
-      <p id="editor-origin" class="editor-origin" hidden></p><label class="sr-only" for="program">BASIC program to enter on the TI-74</label>
+    <div class="panel"><div class="panel-title"><h2>Bloco de programas</h2><small>BASIC / TEXTO</small></div>
+      <p id="editor-origin" class="editor-origin" hidden></p><label class="sr-only" for="program">Programa BASIC a introduzir na TI-74</label>
       <textarea id="program" spellcheck="false" autocapitalize="off" autocomplete="off">10 S=0
 20 FOR I=1 TO 10
 30 S=S+I
 40 NEXT I
 50 END</textarea>
-      <div class="editor-actions"><button id="send-program" class="primary" disabled>Send to TI-74</button><button id="stop-typing" hidden>Cancel</button><button id="import-program">Open .bas</button><button id="export-program">Save .bas</button><button id="undo-example" hidden>Restore previous text</button></div>
-      <label class="replace-option"><input id="replace-program" type="checkbox"><span>Replace the program on the TI-74 before sending (NEW). Save the state first if you want to keep it.</span></label>
-      <p id="typing-status" class="caption">Select BASIC before sending. For the initial example, press RUN and ENTER, then type S and press ENTER to see 55. Without NEW, lines are added or replaced by line number.</p>
+      <div class="editor-actions"><button id="send-program" class="primary" disabled>Introduzir na TI-74</button><button id="stop-typing" hidden>Cancelar</button><button id="import-program">Abrir .bas</button><button id="export-program">Guardar .bas</button><button id="undo-example" hidden>Restaurar texto anterior</button></div>
+      <label class="replace-option"><input id="replace-program" type="checkbox"><span>Substituir o programa na TI-74 antes de enviar (NEW). Guarda o estado primeiro se o quiseres conservar.</span></label>
+      <p id="typing-status" class="caption">Seleciona BASIC antes de enviar. No exemplo inicial, prime RUN e ENTER; depois escreve S e ENTER para ver 55. Sem NEW, as linhas são acrescentadas ou substituídas pelo seu número.</p>
     </div>
-    <div class="panel"><div class="panel-title"><h2>Memory and session</h2><small>LOCAL / OFFLINE</small></div>
-      <div class="memory-line"><span>Internal ROM</span><span id="cpu-info">4 KiB · not loaded</span></div>
-      <div class="memory-line"><span>System ROM</span><span id="system-info">32 KiB · not loaded</span></div>
-      <div class="memory-line"><span>Cartridge</span><span id="cart-info">Not inserted</span></div>
+    <div class="panel"><div class="panel-title"><h2>Memória e sessão</h2><small>LOCAL / OFFLINE</small></div>
+      <div class="memory-line"><span>ROM interna</span><span id="cpu-info">4 KiB · por carregar</span></div>
+      <div class="memory-line"><span>ROM de sistema</span><span id="system-info">32 KiB · por carregar</span></div>
+      <div class="memory-line"><span>Cartucho</span><span id="cart-info">Não inserido</span></div>
       <div class="separator"></div>
-      <div class="editor-actions"><button id="save-state" disabled>Save state</button><button id="load-state" disabled>Restore state</button><button id="forget" class="quiet" hidden>Forget ROMs</button></div>
-      <p class="caption" id="storage-status">Save the state to resume your programs and machine memory later. The file does not include ROMs.</p>
+      <div class="editor-actions"><button id="save-state" disabled>Guardar estado</button><button id="load-state" disabled>Restaurar estado</button><button id="forget" class="quiet" hidden>Esquecer ROMs</button></div>
+      <p class="caption" id="storage-status">Guarda o estado para retomar os programas e a memória da máquina. O ficheiro não inclui ROMs.</p>
     </div>
   </section>
-  <details class="details"><summary>Getting started and keyboard shortcuts</summary>
-    <p>Open this HTML file directly in your browser. Under <strong>Load ROMs</strong>, select the 4,096-byte internal ROM and the 32,768-byte system ROM. Extract the files first if they are in a ZIP archive. Then use MODE to switch between CALC and BASIC.</p>
-    <dl class="shortcuts"><dt>F2 / Page Up</dt><dd>MODE</dd><dt>F3 / Delete</dt><dd>CLR</dd><dt>F4 / Home</dt><dd>RUN</dd><dt>Esc / End</dt><dd>BREAK</dd><dt>F8</dt><dd>ON</dd><dt>F9 / Page Down</dt><dd>OFF</dd><dt>Shift</dt><dd>TI-74 SHIFT</dd><dt>Control</dt><dd>TI-74 CTL (browser shortcuts still work)</dd><dt>F1 / Alt</dt><dd>FN</dd><dt>Backspace</dt><dd>SHIFT + 7 (DEL)</dd></dl>
-    <p>The TI-74 has its own key combinations. SHIFT modifies characters; FN accesses the BASIC keywords printed above the letters. You can also hold Shift on your keyboard. The program editor handles these combinations automatically when sending BASIC text with symbols. ENTER confirms commands: to run a program, press RUN, then ENTER. In CALC mode, use SHIFT + ENTER for =.</p>
-    <p>The program editor is a separate text editor. Save .bas exports its text; Save state preserves the actual TI-74 memory. Saving a state provides a local alternative to cassette storage, which is not yet emulated.</p>
+  <details class="details"><summary>Como usar e atalhos</summary>
+    <p>Abre este ficheiro HTML diretamente no navegador. Em <strong>Carregar ROMs</strong>, seleciona a ROM interna de 4096 bytes e a ROM de sistema de 32768 bytes. Extrai previamente os ficheiros se estiverem num ZIP. Depois, usa MODE para alternar entre CALC e BASIC.</p>
+    <dl class="shortcuts"><dt>F2 / Page Up</dt><dd>MODE</dd><dt>F3 / Delete</dt><dd>CLR</dd><dt>F4 / Home</dt><dd>RUN</dd><dt>Esc / End</dt><dd>BREAK</dd><dt>F8</dt><dd>ON</dd><dt>F9 / Page Down</dt><dd>OFF</dd><dt>Shift</dt><dd>SHIFT da TI-74</dd><dt>Control</dt><dd>CTL da TI-74 (atalhos do navegador são preservados)</dd><dt>F1 / Alt</dt><dd>FN</dd><dt>Backspace</dt><dd>SHIFT + 7 (DEL)</dd></dl>
+    <p>As teclas da TI-74 têm as suas próprias combinações. SHIFT modifica caracteres; FN dá acesso às palavras BASIC impressas acima das letras. Também podes manter Shift premido no teclado físico. Para texto BASIC com símbolos, o bloco de programas faz as combinações automaticamente. A tecla ENTER confirma comandos: para executar, prime RUN e depois ENTER. No modo CALC, usa SHIFT + ENTER para «=».</p>
+    <p>O bloco de programas é um editor de texto auxiliar. «Guardar .bas» exporta esse texto; «Guardar estado» preserva a memória efetiva da TI-74. A gravação do estado é a alternativa local à cassete, que ainda não é emulada.</p>
   </details>
-  <details class="details" id="technical"><summary>Technical status and diagnostics</summary>
-    <p>Implemented: TMS7000 instructions used by the TMS70C46, internal RAM, 8 KiB of RAM, ROM banking, timer, interrupts, keyboard matrix, and HD44780 LCD with CGRAM. ROM cartridges up to 32 KiB can be loaded.</p>
-    <p>Verified with ROMs 55A2F7C0 / 019AAA2F: startup, calculations in BASIC and CALC modes, FOR/NEXT programs, saving and restoring states, and RAM retention across OFF/ON. Full compatibility has not been certified. The included diagnostic is a small original machine-code program without BASIC; it displays the row and bitmask of the last key pressed.</p>
-    <p>Limitations: the slow-memory clock divider, DOCK-BUS peripherals, and RAM cartridges are not implemented. Speed 1× corresponds to 4 MHz / 2 without that divider. The built-in LCD font is approximate; load a 4,096-byte HD44780 A00 character ROM for the original glyphs. Emulation pauses when this page is hidden.</p>
-    <div class="editor-actions"><button id="diagnostic-again">Run separate diagnostic</button><button id="copy-display">Copy display</button></div>
-    <div id="debug" class="debug">No machine loaded.</div>
+  <details class="details" id="technical"><summary>Estado técnico e diagnóstico</summary>
+    <p>Implementados: instruções TMS7000 usadas pelo TMS70C46, RAM interna, 8 KiB de RAM, bancos de ROM, temporizador, interrupções, matriz de teclado e LCD HD44780 com CGRAM. Cartuchos de ROM até 32 KiB podem ser carregados.</p>
+    <p>Verificado com as ROMs 55A2F7C0 / 019AAA2F: arranque, cálculos nos modos BASIC e CALC, programas FOR/NEXT, gravação e restauração de estado e retenção de RAM em OFF/ON. A compatibilidade completa ainda não foi certificada. O diagnóstico incluído é um pequeno programa original em código de máquina, sem BASIC; mostra a linha e a máscara da última tecla premida.</p>
+    <p>Limites: o divisor de relógio de memória lenta, os periféricos DOCK-BUS e cartuchos de RAM não estão implementados. A velocidade 1× corresponde a 4 MHz / 2 sem esse divisor. A fonte LCD integrada é aproximada; podes carregar a ROM de caracteres HD44780 A00 de 4096 bytes para obter os glifos originais. A execução pausa quando esta página está oculta.</p>
+    <div class="editor-actions"><button id="diagnostic-again">Executar diagnóstico separado</button><button id="copy-display">Copiar visor</button></div>
+    <div id="debug" class="debug">Sem máquina carregada.</div>
   </details>
-  <details class="details"><summary>References and license</summary>
-    <p>JavaScript implementation adapted from the BSD-3-Clause references for <a href="https://github.com/mamedev/mame/blob/master/src/mame/ti/ti74.cpp" target="_blank" rel="noopener">MAME TI-74</a>, <a href="https://github.com/mamedev/mame/tree/master/src/devices/cpu/tms7000" target="_blank" rel="noopener">TMS7000</a>, and <a href="https://github.com/mamedev/mame/blob/master/src/devices/video/hd44780.cpp" target="_blank" rel="noopener">HD44780</a>. Reference authors: hap, Tim Lindner, and Sandro Ronco. See the <a href="https://casio.ledudu.com/images/pockets/ti/manuels/TI74_Technical_Manual.pdf" target="_blank" rel="noopener">original technical manual</a>. Independent project, not affiliated with Texas Instruments. <span id="firmware-note">This version does not include TI ROMs.</span></p>
+  <details class="details"><summary>Referências e licença</summary>
+    <p>Implementação JavaScript adaptada das referências BSD-3-Clause do <a href="https://github.com/mamedev/mame/blob/master/src/mame/ti/ti74.cpp" target="_blank" rel="noopener">MAME TI-74</a>, do <a href="https://github.com/mamedev/mame/tree/master/src/devices/cpu/tms7000" target="_blank" rel="noopener">TMS7000</a> e do <a href="https://github.com/mamedev/mame/blob/master/src/devices/video/hd44780.cpp" target="_blank" rel="noopener">HD44780</a>. Autores das referências: hap, Tim Lindner e Sandro Ronco. Consulta o <a href="https://casio.ledudu.com/images/pockets/ti/manuels/TI74_Technical_Manual.pdf" target="_blank" rel="noopener">manual técnico original</a>. Projeto independente, sem afiliação à Texas Instruments. <span id="firmware-note">Este modelo não inclui ROMs TI.</span></p>
     <pre id="license-copy"></pre>
   </details>
-  <footer><span>TI-74 BASICALC · 31 CHARACTERS · 8 KiB RAM</span><span>ONE HTML FILE · CSS + JAVASCRIPT · NO NETWORK</span></footer>
+  <footer><span>TI-74 BASICALC · 31 CARACTERES · 8 KiB RAM</span><span>UM HTML · CSS + JAVASCRIPT · SEM REDE</span></footer>
 </main>
 <dialog id="rom-dialog" aria-labelledby="rom-title">
-  <div class="dialog-head"><h2 id="rom-title">Load the TI-74</h2><button id="close-roms" aria-label="Close">×</button></div>
-  <p>Select both firmware files. File size identifies each ROM; the checksum recognizes known versions.</p>
-  <button type="button" class="dropzone" id="dropzone" style="width:100%"><strong>Select files or drag them here</strong><small>Internal ROM · 4 KiB &nbsp; + &nbsp; System ROM · 32 KiB</small></button>
+  <div class="dialog-head"><h2 id="rom-title">Carregar a TI-74</h2><button id="close-roms" aria-label="Fechar">×</button></div>
+  <p>Seleciona os dois ficheiros de firmware. O tamanho identifica cada ROM; a soma de controlo reconhece as versões conhecidas.</p>
+  <button type="button" class="dropzone" id="dropzone" style="width:100%"><strong>Selecionar ficheiros ou arrastar para aqui</strong><small>ROM interna · 4 KiB &nbsp; + &nbsp; ROM de sistema · 32 KiB</small></button>
   <input id="rom-files" type="file" multiple hidden>
-  <div class="rom-slot"><span>Internal ROM</span><span id="pending-internal">c70009.ic2 · 4096 bytes</span></div>
-  <div class="rom-slot"><span>System ROM</span><span id="pending-system">*.ic1 · 32768 bytes</span></div>
-  <div class="optional-files"><label>ROM cartridge (optional)<input id="cart-file" type="file" accept=".bin,.rom,.256"></label><label>HD44780 character ROM (optional)<input id="font-file" type="file" accept=".bin,.rom,.cg"></label></div>
-  <label class="options-row"><input type="checkbox" id="remember"><span>Save these ROMs in this browser for your next session.</span></label>
-  <p class="caption">Loading a new set starts a fresh session. Save the state first if you want to keep your current session.</p>
+  <div class="rom-slot"><span>ROM interna</span><span id="pending-internal">c70009.ic2 · 4096 bytes</span></div>
+  <div class="rom-slot"><span>ROM de sistema</span><span id="pending-system">1060281-101_hn61256pd12.ic1 · 32768 bytes · CRC32 019AAA2F</span></div>
+  <div class="optional-files"><label>Cartucho de ROM (opcional)<input id="cart-file" type="file" accept=".bin,.rom,.256"></label><label>Caracteres HD44780 (opcional)<input id="font-file" type="file" accept=".bin,.rom,.cg"></label></div>
+  <label class="options-row"><input type="checkbox" id="remember"><span>Guardar estas ROMs neste navegador para a próxima sessão.</span></label>
+  <p class="caption">Carregar um novo conjunto inicia uma sessão limpa. Guarda primeiro o estado se quiseres conservar a sessão atual.</p>
   <p id="rom-error" class="dialog-error" role="status"></p>
-  <div class="dialog-actions"><button id="cancel-roms">Cancel</button><button id="boot" class="primary" disabled>Start TI-74 →</button></div>
+  <div class="dialog-actions"><button id="cancel-roms">Cancelar</button><button id="boot" class="primary" disabled>Iniciar TI-74 →</button></div>
 </dialog>
 <input id="program-file" type="file" accept=".bas,.txt" hidden>
 <input id="state-file" type="file" accept=".json" hidden>
 <script id="embedded-roms" type="application/json">null</script>
-<script id="program-library" type="application/json">{"version":1,"locale":"en-US","reference":"https://es.scribd.com/document/500278634/TI-74-Programming-Reference-Guide","programs":[{"id":"01-hello","title":"Hello, TI-74","category":"Getting started","level":"Beginner","summary":"Your first program: display a message and keep it on the screen.","concepts":["REM","PRINT","PAUSE","END",":"],"instructions":"Press RUN and ENTER. Read the message; press ENTER to end the pause.","expected":"HELLO, TI-74!","notes":["Line 10 is a comment; it produces no output.","Line 20 combines PRINT and PAUSE on one line, separated by a colon.","PAUSE lets you read the output before continuing."],"experiment":"Change the text in quotation marks. Use up to 31 characters to fit the display.","code":"10 REM FIRST PROGRAM\n20 PRINT \"HELLO, TI-74!\":PAUSE\n30 END"},{"id":"02-arithmetic","title":"Expressions and order of operations","category":"Getting started","level":"Beginner","summary":"Compare operations with and without parentheses, and combine powers with square roots.","concepts":["LET","+","*","^","SQR","()"],"instructions":"Press RUN and ENTER. Press ENTER between the two screens and again at the end.","expected":"First: A=14 and B=20. Then: C=41.","notes":["Line 20 uses LET; later assignments omit this optional keyword.","A multiplies before adding. B uses parentheses to add first.","C combines 2 to the fifth power with the square root of 81."],"experiment":"Replace 2^5 with 2^8 and predict the new value of C before running.","code":"10 REM EXPRESSIONS\n20 LET A=2+3*4\n30 B=(2+3)*4\n40 C=2^5+SQR(81)\n50 PRINT \"A=\";A;\" B=\";B:PAUSE\n60 PRINT \"C=\";C:PAUSE\n70 END"},{"id":"03-sum","title":"Add the numbers from 1 to 10","category":"Getting started","level":"Beginner","summary":"A counter and an accumulator demonstrate the structure of a loop.","concepts":["FOR","TO","NEXT","variables"],"instructions":"Press RUN and ENTER. The total stays visible until you press ENTER.","expected":"SUM=55","notes":["Line 20 initializes S before the loop.","Lines 30–50 step through I from 1 to 10 and add each value to S.","After the program ends, type S and press ENTER to inspect the variable."],"experiment":"Change the upper limit to 100. The total should become 5,050.","code":"10 REM ACCUMULATOR\n20 S=0\n30 FOR I=1 TO 10\n40 S=S+I\n50 NEXT I\n60 PRINT \"SUM=\";S:PAUSE\n70 END"},{"id":"04-countdown","title":"Countdown","category":"Getting started","level":"Beginner","summary":"A negative step runs a loop in reverse order.","concepts":["FOR","STEP","NEXT","PAUSE"],"instructions":"Press RUN and ENTER. Press ENTER to step through 3, 2, 1, and GO.","expected":"3 → 2 → 1 → GO","notes":["Line 20 uses STEP -1 to decrease the counter.","The pause is inside the loop: each number waits for ENTER."],"experiment":"Start at 10 and use STEP -2. Which values appear?","code":"10 REM REVERSE LOOP\n20 FOR I=3 TO 1 STEP -1\n30 PRINT I:PAUSE\n40 NEXT I\n50 PRINT \"GO\":PAUSE\n60 END"},{"id":"05-temperature","title":"Temperature converter","category":"Input and decisions","level":"Beginner","summary":"Ask the user for a value and convert it to another unit.","concepts":["INPUT","variables","expressions"],"instructions":"Press RUN and ENTER. At CELSIUS?, type 25 and press ENTER. Press ENTER again to close the result.","expected":"With 25: F=77. With -40: F=-40.","notes":["Line 20 displays a prompt and stores the answer in C.","Line 30 applies F=C×9/5+32; use a period as the decimal separator."],"experiment":"Convert in the other direction: ask for F and calculate (F-32)*5/9.","code":"10 REM CELSIUS TO FAHRENHEIT\n20 INPUT \"CELSIUS? \";C\n30 F=C*9/5+32\n40 PRINT \"F=\";F:PAUSE\n50 END"},{"id":"06-decisions","title":"Validate and decide: odd or even","category":"Input and decisions","level":"Intermediate","summary":"Validate an integer and choose one of two responses.","concepts":["IF","THEN","ELSE","OR","INT","GOTO"],"instructions":"Press RUN and ENTER. Enter an integer from 0 to 100. Also try -1 or 2.5; press ENTER after the error message to try again.","expected":"7 → ODD; 8 → EVEN. Invalid values display INTEGER FROM 0 TO 100.","notes":["Line 30 rejects negatives, values above 100, and numbers with a fractional part.","Line 40 compares N with twice the integer part of N/2.","GOTO 20 returns to the prompt after invalid input."],"experiment":"Change the test to identify multiples of 3.","code":"10 REM VALIDATE AN INTEGER\n20 INPUT \"NUMBER 0 TO 100? \";N\n30 IF N\u003c0 OR N>100 OR N\u003c>INT(N) THEN 80\n40 IF N=2*INT(N/2) THEN PRINT \"EVEN\" ELSE PRINT \"ODD\"\n50 PAUSE\n60 GOTO 100\n80 PRINT \"INTEGER FROM 0 TO 100\":PAUSE\n90 GOTO 20\n100 END"},{"id":"07-strings","title":"Slice, join, and search text","category":"Text","level":"Intermediate","summary":"Explore the string operations available in this BASIC dialect.","concepts":["$","&","SEG$","LEN","POS"],"instructions":"Press RUN and ENTER. Press ENTER to advance between the two results.","expected":"BASIC / ALC; then LEN=8 and POS=5.","notes":["A$ and B$ are string variables.","Line 30 builds B$ from two parts of A$ using the & operator.","Line 50 measures the text and searches for CAL starting at position 1."],"experiment":"Change BASICALC to CALCULATOR and adjust the slices.","code":"10 REM STRING OPERATIONS\n20 A$=\"BASICALC\"\n30 B$=SEG$(A$,1,5)&\" / \"&SEG$(A$,6,3)\n40 PRINT B$:PAUSE\n50 PRINT \"LEN=\";LEN(A$);\" POS=\";POS(A$,\"CAL\",1):PAUSE\n60 END"},{"id":"08-ascii","title":"Text, character codes, and numbers","category":"Text","level":"Intermediate","summary":"Convert characters to codes and numeric strings to values.","concepts":["ASC","CHR$","VAL","STR$","&"],"instructions":"Press RUN and ENTER. Press ENTER to see each result.","expected":"ASCII=65; LETTER=B; DOUBLE=25.","notes":["ASC converts A to its character code; CHR$ converts the next code to B.","VAL converts 12.5 from text to a number before multiplication.","STR$ lets you join a numeric result to a message."],"experiment":"Replace A with Z and see which character comes next.","code":"10 REM CONVERSIONS\n20 A=ASC(\"A\")\n30 B$=CHR$(A+1)\n40 N=VAL(\"12.5\")*2\n50 PRINT \"ASCII=\";A:PAUSE\n60 PRINT \"LETTER=\";B$:PAUSE\n70 PRINT \"DOUBLE=\"&STR$(N):PAUSE\n80 END"},{"id":"09-data","title":"Read and reread a data table","category":"Data and algorithms","level":"Beginner","summary":"Store a small table in the program and restart reading it.","concepts":["DATA","READ","RESTORE","FOR"],"instructions":"Press RUN and ENTER. Press ENTER to advance from the total to the first item read again.","expected":"TOTAL=30; FIRST=4.","notes":["Line 20 contains four values; READ consumes one at a time.","RESTORE 20 returns to the beginning of the table.","DATA is on its own line."],"experiment":"Change the four values and check the new total.","code":"10 REM DATA TABLE\n20 DATA 4,7,9,10\n30 S=0\n40 FOR I=1 TO 4\n50 READ X\n60 S=S+X\n70 NEXT I\n80 PRINT \"TOTAL=\";S:PAUSE\n90 RESTORE 20\n100 READ X\n110 PRINT \"FIRST=\";X:PAUSE\n120 END"},{"id":"10-statistics","title":"Mean and standard deviation","category":"Data and algorithms","level":"Intermediate","summary":"Store observations in an array and calculate descriptive statistics in two passes.","concepts":["DIM","READ","FOR","SQR","^"],"instructions":"Press RUN and ENTER. Press ENTER to advance from the mean to the population standard deviation.","expected":"MEAN=5; STDDEV=2.","notes":["Line 20 allocates A(0) through A(8); this example uses indices 1 through 8.","Lines 100–120 accumulate squared differences from the mean.","Line 130 divides by 8 to calculate the population standard deviation."],"experiment":"For the sample standard deviation of the same data, divide by 7 before applying SQR.","code":"10 REM POPULATION STATISTICS\n20 DIM A(8)\n30 DATA 2,4,4,4,5,5,7,9\n40 S=0\n50 FOR I=1 TO 8\n60 READ A(I)\n70 S=S+A(I)\n80 NEXT I\n90 M=S/8:V=0\n100 FOR I=1 TO 8\n110 V=V+(A(I)-M)^2\n120 NEXT I\n130 D=SQR(V/8)\n140 PRINT \"MEAN=\";M:PAUSE\n150 PRINT \"STDDEV=\";D:PAUSE\n160 END"},{"id":"11-matrix","title":"A 2 × 2 matrix","category":"Data and algorithms","level":"Intermediate","summary":"Use two indices and nested loops to calculate a determinant.","concepts":["DIM","FOR","NEXT","DATA","indices"],"instructions":"Press RUN and ENTER. Press ENTER to close the determinant result.","expected":"DET=-2 for the matrix [1, 2; 3, 4].","notes":["Line 20 allocates a matrix; indices 1 and 2 are used in each dimension.","Lines 40–80 fill one row at a time.","Line 90 subtracts the product of the secondary diagonal from the product of the main diagonal."],"experiment":"Use the data 1,0,0,1: the identity matrix has determinant 1.","code":"10 REM 2 BY 2 DETERMINANT\n20 DIM A(2,2)\n30 DATA 1,2,3,4\n40 FOR I=1 TO 2\n50 FOR J=1 TO 2\n60 READ A(I,J)\n70 NEXT J\n80 NEXT I\n90 D=A(1,1)*A(2,2)-A(1,2)*A(2,1)\n100 PRINT \"DET=\";D:PAUSE\n110 END"},{"id":"12-gosub","title":"Reuse a subroutine","category":"Program structure","level":"Intermediate","summary":"Calculate two hypotenuses using the same block of code.","concepts":["GOSUB","RETURN","GOTO","SQR"],"instructions":"Press RUN and ENTER. Press ENTER to advance from the first hypotenuse to the second.","expected":"H1=5; H2=13.","notes":["GOSUB 200 calls the subroutine, and RETURN goes back to the next statement.","A, B, and H are shared with the main program.","GOTO 900 prevents execution from falling through into the subroutine again."],"experiment":"Change the second pair to 8 and 15. The hypotenuse will be 17.","code":"10 REM REUSABLE HYPOTENUSE\n20 A=3:B=4:GOSUB 200\n30 PRINT \"H1=\";H:PAUSE\n40 A=5:B=12:GOSUB 200\n50 PRINT \"H2=\";H:PAUSE\n60 GOTO 900\n200 H=SQR(A^2+B^2)\n210 RETURN\n900 END"},{"id":"13-subprogram","title":"A subprogram with parameters","category":"Program structure","level":"Advanced","summary":"Put an operation in a named subprogram with arguments.","concepts":["CALL","SUB","SUBEND","parameters"],"instructions":"Press RUN and ENTER. Read the result and press ENTER.","expected":"DOUBLE=14","notes":["Line 30 passes A and B to the DOUBLE subprogram.","Lines 100–120 use X and Y as parameters; assigning to Y returns the result in B.","The subprogram appears after the END of the main program."],"experiment":"Call DOUBLE again, using B as input and another variable as output.","code":"10 REM SUBPROGRAM WITH PARAMETERS\n20 A=7:B=0\n30 CALL DOUBLE(A,B)\n40 PRINT \"DOUBLE=\";B:PAUSE\n50 END\n100 SUB DOUBLE(X,Y)\n110 Y=2*X\n120 SUBEND"},{"id":"14-science","title":"Angles and logarithms","category":"Science","level":"Intermediate","summary":"Compare degrees with radians and check inverse functions.","concepts":["DEG","RAD","SIN","PI","LOG","LN","EXP"],"instructions":"Press RUN and ENTER. Press ENTER to advance through the three screens. The program restores DEG before finishing.","expected":"DEGREES=.5; RADIANS=.5; LOG=3 and LNEXP=2.","notes":["DEG and RAD explicitly set the angle unit before calculating SIN.","PI/6 radians equals 30 degrees.","LOG(1000) uses base 10; LN reverses EXP."],"experiment":"Compare SIN(90) in DEG mode with SIN(PI/2) in RAD mode.","code":"10 REM SCIENTIFIC FUNCTIONS\n20 DEG\n30 A=SIN(30)\n40 RAD\n50 B=SIN(PI/6)\n60 C=LOG(1000):D=LN(EXP(2))\n70 DEG\n80 PRINT \"DEGREES=\";A:PAUSE\n90 PRINT \"RADIANS=\";B:PAUSE\n100 PRINT \"LOG=\";C;\" LNEXP=\";D:PAUSE\n110 END"},{"id":"15-formatting","title":"Format numbers","category":"Display and interaction","level":"Intermediate","summary":"Control decimal places with a format stored in an IMAGE line.","concepts":["IMAGE","PRINT USING","decimal places"],"instructions":"Press RUN and ENTER. Press ENTER to advance from 12.50 to 3.14.","expected":"12.50; 3.14, aligned in the same field.","notes":["Line 100 defines the format on its own line.","PRINT USING reuses the same format for two numbers.","The format changes the display without changing the value stored in A."],"experiment":"Replace ###.## with ###.### and observe the zeros and rounding.","code":"10 REM TWO DECIMAL PLACES\n20 A=12.5\n30 PRINT USING 100,A:PAUSE\n40 A=PI\n50 PRINT USING 100,A:PAUSE\n60 GOTO 200\n100 IMAGE \"###.##\"\n200 END"},{"id":"16-dice","title":"Roll two dice","category":"Science","level":"Intermediate","summary":"Turn pseudorandom numbers into integers from 1 to 6.","concepts":["RANDOMIZE","RND","INT"],"instructions":"Press RUN and ENTER. View the two dice, then press ENTER to see their sum.","expected":"Each die is in the range 1–6; their sum is in the range 2–12. The seed 74 makes the experiment repeatable.","notes":["Line 20 sets the seed to make the demonstration reproducible.","INT(6*RND)+1 turns a fraction into a die roll.","RND is used without parentheses."],"experiment":"Change the seed. For a 20-sided die, replace 6 with 20.","code":"10 REM TWO DICE\n20 RANDOMIZE 74\n30 A=INT(6*RND)+1\n40 B=INT(6*RND)+1\n50 S=A+B\n60 PRINT \"DICE=\";A;B:PAUSE\n70 PRINT \"SUM=\";S:PAUSE\n80 END"},{"id":"17-sorting","title":"Sort five values","category":"Data and algorithms","level":"Advanced","summary":"A bubble sort combines arrays, loops, and decisions.","concepts":["DIM","FOR","IF","THEN","swapping"],"instructions":"Press RUN and ENTER. Press ENTER to step through the five sorted values.","expected":"1 → 2 → 4 → 7 → 9","notes":["Lines 40–60 load the data into the array.","Lines 70–110 compare neighbors and use T as a temporary variable when swapping.","The limit 5-I reduces the work on each pass."],"experiment":"Replace > with \u003c on line 90 to sort in descending order.","code":"10 REM BUBBLE SORT\n20 DIM A(5)\n30 DATA 9,2,7,1,4\n40 FOR I=1 TO 5\n50 READ A(I)\n60 NEXT I\n70 FOR I=1 TO 4\n80 FOR J=1 TO 5-I\n90 IF A(J)>A(J+1) THEN T=A(J):A(J)=A(J+1):A(J+1)=T\n100 NEXT J\n110 NEXT I\n120 FOR I=1 TO 5\n130 PRINT A(I):PAUSE\n140 NEXT I\n150 END"},{"id":"18-display","title":"Position text on the LCD","category":"Display and interaction","level":"Intermediate","summary":"Build a text bar and write starting at a chosen column.","concepts":["DISPLAY","AT","ERASE ALL","RPT$",";"],"instructions":"Press RUN and ENTER. Read the title and bar; press ENTER to advance to the message at column 8.","expected":"TI-74 followed by eight asterisks; then COLUMN 8 starts at the eighth position.","notes":["Line 20 clears the line; the semicolon keeps its contents for the next write.","Line 30 places the bar starting at column 10.","RPT$ creates eight asterisks without typing each one."],"experiment":"Replace 8 with 15 in RPT$ and move the bar using AT.","code":"10 REM LCD POSITIONS\n20 DISPLAY ERASE ALL,\"TI-74\";\n30 DISPLAY AT(10),RPT$(\"*\",8):PAUSE\n40 DISPLAY ERASE ALL,\"\";\n50 DISPLAY AT(8),\"COLUMN 8\":PAUSE\n60 END"},{"id":"19-keyboard","title":"Read a key without ENTER","category":"Display and interaction","level":"Intermediate","summary":"Show a character as soon as it is typed, along with its character code.","concepts":["KEY$","ASC","PRINT"],"instructions":"Press RUN and ENTER. At PRESS A LETTER, press A without ENTER. Then use ENTER to advance through the results.","expected":"KEY=A and CODE=65 for uppercase A; lowercase a has code 97.","notes":["Line 30 waits for a keyboard character.","The response does not require ENTER.","The code depends on the letter and the uppercase setting of the TI-74."],"experiment":"Try a digit or a punctuation mark.","code":"10 REM SINGLE KEY INPUT\n20 PRINT \"PRESS A LETTER\"\n30 A$=KEY$\n40 PRINT \"KEY=\";A$:PAUSE\n50 PRINT \"CODE=\";ASC(A$):PAUSE\n60 END"},{"id":"20-newton","title":"Approximate a square root","category":"Science","level":"Advanced","summary":"Implement Newton’s method and compare the result with SQR.","concepts":["INPUT","ABS","IF","GOTO","iteration"],"instructions":"Press RUN and ENTER. Enter 2; press ENTER to advance from the approximation to SQR(2). Values must be greater than 0 and no greater than 1,000,000. Enter numbers without thousands separators.","expected":"With 2: about 1.414213562 on both screens. With 81: 9.","notes":["Lines 20–30 validate the range used in this demonstration.","Line 60 calculates a new approximation from the previous one.","Lines 70–90 repeat until the difference is small or 40 iterations have been reached."],"experiment":"Change the tolerance 1E-9 and inspect I after the program to compare the iteration count.","code":"10 REM NEWTON SQUARE ROOT\n20 INPUT \"POSITIVE NUMBER? \";N\n30 IF N\u003c=0 OR N>1000000 THEN 20\n40 X=N:I=0\n50 P=X\n60 X=(X+N/X)/2\n70 I=I+1\n80 IF ABS(X-P)\u003c1E-9 THEN 110\n90 IF I\u003c40 THEN 50\n110 PRINT \"NEWTON=\";X:PAUSE\n120 PRINT \"SQR=\";SQR(N):PAUSE\n130 END"}]}</script>
+<script id="program-library" type="application/json">{"version":1,"reference":"https://es.scribd.com/document/500278634/TI-74-Programming-Reference-Guide","programs":[{"id":"01-hello","title":"Olá, TI-74","category":"Primeiros passos","level":"Inicial","summary":"O primeiro programa: escrever uma mensagem e mantê-la no visor.","concepts":["REM","PRINT","PAUSE","END",":"],"instructions":"Prime RUN e ENTER. Lê a mensagem; ENTER termina a pausa.","expected":"OLA, TI-74!","notes":["10 é um comentário; não produz saída.","20 reúne PRINT e PAUSE na mesma linha, separados por dois-pontos.","PAUSE permite ler o resultado antes de continuar."],"experiment":"Muda o texto entre aspas. Usa até 31 caracteres para caber no visor.","code":"10 REM PRIMEIRO PROGRAMA\n20 PRINT \"OLA, TI-74!\":PAUSE\n30 END"},{"id":"02-arithmetic","title":"Expressões e prioridades","category":"Primeiros passos","level":"Inicial","summary":"Compara operações com e sem parênteses e combina potências com raízes.","concepts":["LET","+","*","^","SQR","()"],"instructions":"RUN e ENTER. Prime ENTER entre os dois ecrãs e no final.","expected":"Primeiro: A=14 e B=20. Depois: C=41.","notes":["20 usa LET; nas linhas seguintes a atribuição dispensa essa palavra.","A multiplica antes de somar. B força a soma com parênteses.","C combina 2 elevado a 5 com a raiz de 81."],"experiment":"Troca 2^5 por 2^8 e prevê o novo C antes de executar.","code":"10 REM EXPRESSOES\n20 LET A=2+3*4\n30 B=(2+3)*4\n40 C=2^5+SQR(81)\n50 PRINT \"A=\";A;\" B=\";B:PAUSE\n60 PRINT \"C=\";C:PAUSE\n70 END"},{"id":"03-sum","title":"Somar de 1 a 10","category":"Primeiros passos","level":"Inicial","summary":"Um contador e um acumulador mostram a estrutura de um ciclo.","concepts":["FOR","TO","NEXT","variáveis"],"instructions":"RUN e ENTER. O total fica visível até premires ENTER.","expected":"SOMA=55","notes":["20 inicializa S antes do ciclo.","30–50 visitam os valores de I entre 1 e 10 e acumulam-nos em S.","Depois de terminar, escreve S e ENTER para consultar a variável."],"experiment":"Muda o limite para 100. O total deve passar a 5050.","code":"10 REM ACUMULADOR\n20 S=0\n30 FOR I=1 TO 10\n40 S=S+I\n50 NEXT I\n60 PRINT \"SOMA=\";S:PAUSE\n70 END"},{"id":"04-countdown","title":"Contagem decrescente","category":"Primeiros passos","level":"Inicial","summary":"Um incremento negativo percorre um ciclo em ordem inversa.","concepts":["FOR","STEP","NEXT","PAUSE"],"instructions":"RUN e ENTER. Prime ENTER para passar por 3, 2, 1 e PARTIDA.","expected":"3 → 2 → 1 → PARTIDA","notes":["20 usa STEP -1 para diminuir o contador.","A pausa está dentro do ciclo: cada número espera por ENTER."],"experiment":"Começa em 10 e usa STEP -2. Que valores aparecem?","code":"10 REM CICLO INVERSO\n20 FOR I=3 TO 1 STEP -1\n30 PRINT I:PAUSE\n40 NEXT I\n50 PRINT \"PARTIDA\":PAUSE\n60 END"},{"id":"05-temperature","title":"Conversor de temperatura","category":"Entrada e decisões","level":"Inicial","summary":"Pede um valor ao utilizador e calcula uma transformação.","concepts":["INPUT","variáveis","expressões"],"instructions":"RUN e ENTER. Em CELSIUS? escreve 25 e ENTER. ENTER fecha o resultado.","expected":"Com 25: F=77. Com -40: F=-40.","notes":["20 apresenta uma pergunta e guarda a resposta em C.","30 aplica F=C×9/5+32; o ponto é o separador decimal."],"experiment":"Converte no sentido inverso: pede F e calcula (F-32)*5/9.","code":"10 REM CELSIUS PARA FAHRENHEIT\n20 INPUT \"CELSIUS? \";C\n30 F=C*9/5+32\n40 PRINT \"F=\";F:PAUSE\n50 END"},{"id":"06-decisions","title":"Validar e decidir: par ou ímpar","category":"Entrada e decisões","level":"Intermédio","summary":"Valida um inteiro e escolhe uma de duas respostas.","concepts":["IF","THEN","ELSE","OR","INT","GOTO"],"instructions":"RUN e ENTER. Introduz um inteiro entre 0 e 100. Testa também -1 ou 2.5; ENTER permite tentar novamente.","expected":"7 → IMPAR; 8 → PAR. Valores fora do domínio mostram INTEIRO DE 0 A 100.","notes":["30 rejeita negativos, valores acima de 100 e números com parte decimal.","40 compara N com o dobro da sua metade inteira.","GOTO 20 volta à pergunta após uma entrada inválida."],"experiment":"Altera o teste para identificar múltiplos de 3.","code":"10 REM VALIDAR UM INTEIRO\n20 INPUT \"NUMERO 0 A 100? \";N\n30 IF N\u003c0 OR N>100 OR N\u003c>INT(N) THEN 80\n40 IF N=2*INT(N/2) THEN PRINT \"PAR\" ELSE PRINT \"IMPAR\"\n50 PAUSE\n60 GOTO 100\n80 PRINT \"INTEIRO DE 0 A 100\":PAUSE\n90 GOTO 20\n100 END"},{"id":"07-strings","title":"Cortar, juntar e procurar texto","category":"Texto","level":"Intermédio","summary":"Explora as operações de texto próprias deste BASIC.","concepts":["$","&","SEG$","LEN","POS"],"instructions":"RUN e ENTER. ENTER avança entre os dois resultados.","expected":"BASIC / ALC; depois LEN=8 e POS=5.","notes":["A$ e B$ são variáveis de texto.","30 constrói B$ com duas partes de A$ e o operador &.","50 mede o texto e procura CAL a partir da posição 1."],"experiment":"Muda BASICALC para CALCULADORA e adapta os cortes.","code":"10 REM MANIPULAR TEXTO\n20 A$=\"BASICALC\"\n30 B$=SEG$(A$,1,5)&\" / \"&SEG$(A$,6,3)\n40 PRINT B$:PAUSE\n50 PRINT \"LEN=\";LEN(A$);\" POS=\";POS(A$,\"CAL\",1):PAUSE\n60 END"},{"id":"08-ascii","title":"Entre texto, códigos e números","category":"Texto","level":"Intermédio","summary":"Converte caracteres em códigos e texto numérico em valores.","concepts":["ASC","CHR$","VAL","STR$","&"],"instructions":"RUN e ENTER. Prime ENTER para ver cada resultado.","expected":"ASCII=65; LETRA=B; DOBRO=25.","notes":["ASC transforma A no seu código; CHR$ transforma o código seguinte em B.","VAL converte 12.5 em número antes de multiplicar.","STR$ permite juntar o resultado numérico a uma mensagem."],"experiment":"Troca A por Z e observa qual é o carácter seguinte.","code":"10 REM CONVERSOES\n20 A=ASC(\"A\")\n30 B$=CHR$(A+1)\n40 N=VAL(\"12.5\")*2\n50 PRINT \"ASCII=\";A:PAUSE\n60 PRINT \"LETRA=\";B$:PAUSE\n70 PRINT \"DOBRO=\"&STR$(N):PAUSE\n80 END"},{"id":"09-data","title":"Ler e reler uma tabela","category":"Dados e algoritmos","level":"Inicial","summary":"Armazena uma pequena tabela no programa e reinicia a sua leitura.","concepts":["DATA","READ","RESTORE","FOR"],"instructions":"RUN e ENTER. ENTER passa da soma ao primeiro elemento relido.","expected":"TOTAL=30; PRIMEIRO=4.","notes":["20 contém quatro dados; READ consome um de cada vez.","RESTORE 20 volta ao início da tabela.","DATA fica numa linha própria."],"experiment":"Altera os quatro dados e verifica o novo total.","code":"10 REM TABELA DE DADOS\n20 DATA 4,7,9,10\n30 S=0\n40 FOR I=1 TO 4\n50 READ X\n60 S=S+X\n70 NEXT I\n80 PRINT \"TOTAL=\";S:PAUSE\n90 RESTORE 20\n100 READ X\n110 PRINT \"PRIMEIRO=\";X:PAUSE\n120 END"},{"id":"10-statistics","title":"Média e desvio padrão","category":"Dados e algoritmos","level":"Intermédio","summary":"Guarda amostras num vetor e calcula medidas descritivas em duas passagens.","concepts":["DIM","READ","FOR","SQR","^"],"instructions":"RUN e ENTER. ENTER alterna entre média e desvio padrão populacional.","expected":"MEDIA=5; DESVIO=2.","notes":["20 reserva A(0) até A(8); este exemplo usa os índices 1 a 8.","100–120 acumulam os quadrados dos desvios à média.","130 divide por 8: é o desvio populacional, não o amostral."],"experiment":"Para o desvio amostral dos mesmos dados, divide por 7 antes de SQR.","code":"10 REM ESTATISTICA POPULACIONAL\n20 DIM A(8)\n30 DATA 2,4,4,4,5,5,7,9\n40 S=0\n50 FOR I=1 TO 8\n60 READ A(I)\n70 S=S+A(I)\n80 NEXT I\n90 M=S/8:V=0\n100 FOR I=1 TO 8\n110 V=V+(A(I)-M)^2\n120 NEXT I\n130 D=SQR(V/8)\n140 PRINT \"MEDIA=\";M:PAUSE\n150 PRINT \"DESVIO=\";D:PAUSE\n160 END"},{"id":"11-matrix","title":"Uma matriz 2 × 2","category":"Dados e algoritmos","level":"Intermédio","summary":"Usa dois índices e ciclos aninhados para calcular um determinante.","concepts":["DIM","FOR","NEXT","DATA","índices"],"instructions":"RUN e ENTER. ENTER termina a apresentação do determinante.","expected":"DET=-2 para a matriz [1, 2; 3, 4].","notes":["20 reserva uma matriz; são usados os índices 1 e 2 em cada dimensão.","40–80 preenchem uma linha de cada vez.","90 calcula a diagonal principal menos a diagonal secundária."],"experiment":"Usa os dados 1,0,0,1: a matriz identidade tem determinante 1.","code":"10 REM DETERMINANTE 2 POR 2\n20 DIM A(2,2)\n30 DATA 1,2,3,4\n40 FOR I=1 TO 2\n50 FOR J=1 TO 2\n60 READ A(I,J)\n70 NEXT J\n80 NEXT I\n90 D=A(1,1)*A(2,2)-A(1,2)*A(2,1)\n100 PRINT \"DET=\";D:PAUSE\n110 END"},{"id":"12-gosub","title":"Reutilizar uma sub-rotina","category":"Estrutura","level":"Intermédio","summary":"Calcula duas hipotenusas usando o mesmo bloco de código.","concepts":["GOSUB","RETURN","GOTO","SQR"],"instructions":"RUN e ENTER. ENTER avança da primeira hipotenusa para a segunda.","expected":"H1=5; H2=13.","notes":["GOSUB 200 visita a sub-rotina e RETURN regressa à instrução seguinte.","A, B e H são partilhadas com o programa principal.","GOTO 900 evita entrar novamente na sub-rotina por sequência."],"experiment":"Muda o segundo par para 8 e 15. A hipotenusa será 17.","code":"10 REM HIPOTENUSA REUTILIZAVEL\n20 A=3:B=4:GOSUB 200\n30 PRINT \"H1=\";H:PAUSE\n40 A=5:B=12:GOSUB 200\n50 PRINT \"H2=\";H:PAUSE\n60 GOTO 900\n200 H=SQR(A^2+B^2)\n210 RETURN\n900 END"},{"id":"13-subprogram","title":"Subprograma com parâmetros","category":"Estrutura","level":"Avançado","summary":"Encapsula uma operação num subprograma com nome e argumentos.","concepts":["CALL","SUB","SUBEND","parâmetros"],"instructions":"RUN e ENTER. Lê o resultado e prime ENTER.","expected":"DOBRO=14","notes":["30 passa A e B ao subprograma DOBRO.","100–120 usam X e Y como parâmetros; a atribuição a Y devolve o resultado em B.","O subprograma fica depois do END do programa principal."],"experiment":"Chama DOBRO outra vez, usando B como entrada e outra variável como saída.","code":"10 REM SUBPROGRAMA COM PARAMETROS\n20 A=7:B=0\n30 CALL DOBRO(A,B)\n40 PRINT \"DOBRO=\";B:PAUSE\n50 END\n100 SUB DOBRO(X,Y)\n110 Y=2*X\n120 SUBEND"},{"id":"14-science","title":"Ângulos e logaritmos","category":"Ciência","level":"Intermédio","summary":"Compara graus com radianos e verifica funções inversas.","concepts":["DEG","RAD","SIN","PI","LOG","LN","EXP"],"instructions":"RUN e ENTER. ENTER avança pelos três ecrãs. O programa repõe DEG antes de terminar.","expected":"GRAUS=.5; RADIANOS=.5; LOG=3 e LNEXP=2.","notes":["DEG e RAD tornam explícita a unidade antes de calcular SIN.","PI/6 radianos corresponde a 30 graus.","LOG(1000) usa base 10; LN desfaz EXP."],"experiment":"Compara SIN(90) em DEG com SIN(PI/2) em RAD.","code":"10 REM FUNCOES CIENTIFICAS\n20 DEG\n30 A=SIN(30)\n40 RAD\n50 B=SIN(PI/6)\n60 C=LOG(1000):D=LN(EXP(2))\n70 DEG\n80 PRINT \"GRAUS=\";A:PAUSE\n90 PRINT \"RADIANOS=\";B:PAUSE\n100 PRINT \"LOG=\";C;\" LNEXP=\";D:PAUSE\n110 END"},{"id":"15-formatting","title":"Formatar números","category":"Visor e interação","level":"Intermédio","summary":"Controla as casas decimais com um formato guardado numa linha IMAGE.","concepts":["IMAGE","PRINT USING","casas decimais"],"instructions":"RUN e ENTER. ENTER passa de 12.50 para 3.14.","expected":"12.50; 3.14, alinhados no mesmo campo.","notes":["100 define o formato e fica numa linha própria.","PRINT USING reutiliza o mesmo formato para dois números.","O formato muda a apresentação; não altera o valor guardado em A."],"experiment":"Troca ###.## por ###.### e observa os zeros e o arredondamento.","code":"10 REM DUAS CASAS DECIMAIS\n20 A=12.5\n30 PRINT USING 100,A:PAUSE\n40 A=PI\n50 PRINT USING 100,A:PAUSE\n60 GOTO 200\n100 IMAGE \"###.##\"\n200 END"},{"id":"16-dice","title":"Lançar dois dados","category":"Ciência","level":"Intermédio","summary":"Transforma números pseudoaleatórios em inteiros de 1 a 6.","concepts":["RANDOMIZE","RND","INT"],"instructions":"RUN e ENTER. Observa os dois dados e depois a soma, premindo ENTER.","expected":"Cada dado pertence a 1…6; a soma pertence a 2…12. A semente 74 permite repetir a experiência.","notes":["20 fixa a semente para tornar a demonstração reprodutível.","INT(6*RND)+1 transforma uma fração num resultado de dado.","RND é usado sem parênteses."],"experiment":"Altera a semente. Para um dado de 20 faces, troca 6 por 20.","code":"10 REM DOIS DADOS\n20 RANDOMIZE 74\n30 A=INT(6*RND)+1\n40 B=INT(6*RND)+1\n50 S=A+B\n60 PRINT \"DADOS=\";A;B:PAUSE\n70 PRINT \"SOMA=\";S:PAUSE\n80 END"},{"id":"17-sorting","title":"Ordenar cinco valores","category":"Dados e algoritmos","level":"Avançado","summary":"Uma ordenação por trocas combina vetores, ciclos e decisões.","concepts":["DIM","FOR","IF","THEN","troca"],"instructions":"RUN e ENTER. Prime ENTER para percorrer os cinco valores ordenados.","expected":"1 → 2 → 4 → 7 → 9","notes":["40–60 carregam os dados no vetor.","70–110 comparam vizinhos e usam T como variável temporária na troca.","O limite 5-I reduz o trabalho em cada passagem."],"experiment":"Troca > por \u003c na linha 90 para ordenar por ordem decrescente.","code":"10 REM ORDENACAO POR TROCAS\n20 DIM A(5)\n30 DATA 9,2,7,1,4\n40 FOR I=1 TO 5\n50 READ A(I)\n60 NEXT I\n70 FOR I=1 TO 4\n80 FOR J=1 TO 5-I\n90 IF A(J)>A(J+1) THEN T=A(J):A(J)=A(J+1):A(J+1)=T\n100 NEXT J\n110 NEXT I\n120 FOR I=1 TO 5\n130 PRINT A(I):PAUSE\n140 NEXT I\n150 END"},{"id":"18-display","title":"Posicionar texto no LCD","category":"Visor e interação","level":"Intermédio","summary":"Constrói uma barra textual e escreve a partir de uma coluna escolhida.","concepts":["DISPLAY","AT","ERASE ALL","RPT$",";"],"instructions":"RUN e ENTER. Lê o título e a barra; ENTER avança para a mensagem posicionada na coluna 8.","expected":"TI-74 seguido de oito asteriscos; depois COLUNA 8 começa na oitava posição.","notes":["20 limpa a linha; o ponto e vírgula conserva o conteúdo para a próxima escrita.","30 coloca a barra a partir da coluna 10.","RPT$ cria os oito asteriscos sem os escrever um a um."],"experiment":"Troca 8 por 15 em RPT$ e desloca a barra com AT.","code":"10 REM POSICOES NO LCD\n20 DISPLAY ERASE ALL,\"TI-74\";\n30 DISPLAY AT(10),RPT$(\"*\",8):PAUSE\n40 DISPLAY ERASE ALL,\"\";\n50 DISPLAY AT(8),\"COLUNA 8\":PAUSE\n60 END"},{"id":"19-keyboard","title":"Ler uma tecla sem ENTER","category":"Visor e interação","level":"Intermédio","summary":"Uma interação direta mostra o carácter recebido e o respetivo código.","concepts":["KEY$","ASC","PRINT"],"instructions":"RUN e ENTER. Em PRIME UMA LETRA, prime A sem ENTER. Depois usa ENTER para avançar pelos resultados.","expected":"TECLA=A e CODIGO=65 em maiúsculas; a minúscula a tem código 97.","notes":["30 espera por um carácter do teclado.","A resposta não precisa de ENTER.","O código depende da letra e do estado de maiúsculas da TI-74."],"experiment":"Experimenta um algarismo ou um sinal de pontuação.","code":"10 REM ENTRADA DE UMA TECLA\n20 PRINT \"PRIME UMA LETRA\"\n30 A$=KEY$\n40 PRINT \"TECLA=\";A$:PAUSE\n50 PRINT \"CODIGO=\";ASC(A$):PAUSE\n60 END"},{"id":"20-newton","title":"Aproximar uma raiz","category":"Ciência","level":"Avançado","summary":"Implementa o método de Newton e compara o resultado com SQR.","concepts":["INPUT","ABS","IF","GOTO","iteração"],"instructions":"RUN e ENTER. Introduz 2; ENTER avança da aproximação para SQR(2). Só são aceites valores entre 0 e 1000000, excluindo zero.","expected":"Com 2: cerca de 1.414213562 nos dois ecrãs. Com 81: 9.","notes":["20–30 validam o domínio usado nesta demonstração.","60 calcula uma aproximação a partir da anterior.","70–90 repetem até a diferença ser pequena ou se atingirem 40 iterações."],"experiment":"Muda a tolerância 1E-9 e consulta I após o programa para comparar o número de iterações.","code":"10 REM RAIZ PELO METODO DE NEWTON\n20 INPUT \"NUMERO POSITIVO? \";N\n30 IF N\u003c=0 OR N>1000000 THEN 20\n40 X=N:I=0\n50 P=X\n60 X=(X+N/X)/2\n70 I=I+1\n80 IF ABS(X-P)\u003c1E-9 THEN 110\n90 IF I\u003c40 THEN 50\n110 PRINT \"NEWTON=\";X:PAUSE\n120 PRINT \"SQR=\";SQR(N):PAUSE\n130 END"}]}</script>
 <script id="emulator-core">
 'use strict';
 /*
@@ -373,7 +373,7 @@ class TMS70C46 {
       case 13: this.sp=this.r(1); this.cost+=5; break;
       case 14: this.push(this.sr); this.cost+=6; break;
       case 128: case 145: {const t=this.r(256+this.fetch()); this.w(op===128?0:1,t); this.cnz(t); this.cost+=op===128?9:8; break;}
-      default: throw new Error('Undefined instruction '+hex(op)+' at '+hex(at,4)+'. Check the ROMs.');
+      default: throw new Error('Instrução não definida '+hex(op)+' em '+hex(at,4)+'. Verifique as ROMs.');
     }
     this.advance(this.cost); return this.cost;
   }
@@ -473,7 +473,7 @@ class TI74 {
     this.kind='empty'; this.fingerprint='';
   }
   load(internal,system,kind='rom') {
-    if(internal.length!==4096||system.length!==32768)throw new Error('ROMs must be 4,096 and 32,768 bytes.');
+    if(internal.length!==4096||system.length!==32768)throw new Error('As ROMs devem ter 4096 e 32768 bytes.');
     this.internal=new Uint8Array(internal);this.system=new Uint8Array(system);this.kind=kind;
     this.fingerprint=crc32(internal)+'-'+crc32(system);
     this.ram.fill(0);this.rf.fill(0);this.keys.fill(0);
@@ -511,20 +511,20 @@ class TI74 {
     return {format:'ti74-state',version:1,firmware:this.fingerprint,cart:this.cart?crc32(this.cart):null,power:this.power,bank:this.bank,select:this.select,rf:Array.from(this.rf),ram:Array.from(this.ram),cpu,lcd};
   }
   restore(state) {
-    if(!state||state.format!=='ti74-state'||state.version!==1)throw new Error('Invalid state format.');
-    if(state.firmware!==this.fingerprint||state.cart!==(this.cart?crc32(this.cart):null))throw new Error('This state belongs to different ROMs or a different cartridge.');
+    if(!state||state.format!=='ti74-state'||state.version!==1)throw new Error('Formato de estado inválido.');
+    if(state.firmware!==this.fingerprint||state.cart!==(this.cart?crc32(this.cart):null))throw new Error('O estado pertence a outras ROMs ou a outro cartucho.');
     const bytes=(a,n)=>Array.isArray(a)&&a.length===n&&a.every(v=>Number.isInteger(v)&&v>=0&&v<=255);
-    if(!bytes(state.rf,128)||!bytes(state.ram,8192)||!bytes(state.cpu?.ports,4)||!bytes(state.cpu?.ddr,4)||!bytes(state.lcd?.ddram,128)||!bytes(state.lcd?.cgram,64))throw new Error('Invalid state memory.');
+    if(!bytes(state.rf,128)||!bytes(state.ram,8192)||!bytes(state.cpu?.ports,4)||!bytes(state.cpu?.ddr,4)||!bytes(state.lcd?.ddram,128)||!bytes(state.lcd?.cgram,64))throw new Error('Memória do estado inválida.');
     const integers={pc:[0,65535],sp:[0,255],sr:[0,255],cycles:[0,Number.MAX_SAFE_INTEGER],instructions:[0,Number.MAX_SAFE_INTEGER],io:[0,255],control:[0,255],timerData:[0,255],timerControl:[0,255],timerValue:[0,255],timerPhase:[0,255],timerCapture:[0,255]};
     const lcdInts={ac:[0,127],direction:[-1,1],shift:[0,79],lines:[1,2],dataLength:[4,8],nibbleMode:[-1,3],latch:[0,255],busy:[0,3038],clock:[0,Number.MAX_SAFE_INTEGER]};
     const validate=(object,ranges,bools)=>{
-      for(const [k,[min,max]] of Object.entries(ranges))if(!Number.isInteger(object[k])||object[k]<min||object[k]>max)throw new Error('Invalid state value: '+k);
-      for(const k of bools)if(typeof object[k]!=='boolean')throw new Error('Invalid state value: '+k);
+      for(const [k,[min,max]] of Object.entries(ranges))if(!Number.isInteger(object[k])||object[k]<min||object[k]>max)throw new Error('Valor inválido no estado: '+k);
+      for(const k of bools)if(typeof object[k]!=='boolean')throw new Error('Valor inválido no estado: '+k);
     };
     validate(state,{bank:[0,3],select:[0,255]},['power']);
     validate(state.cpu,integers,['idle','halt','irq1']);
     validate(state.lcd,lcdInts,['cg','display','cursor','blink','shiftOn','nibble']);
-    if(![-1,1].includes(state.lcd.direction)||![4,8].includes(state.lcd.dataLength))throw new Error('Invalid LCD configuration.');
+    if(![-1,1].includes(state.lcd.direction)||![4,8].includes(state.lcd.dataLength))throw new Error('Configuração de LCD inválida.');
     // Validate everything before mutating the running machine.
     this.ram.set(state.ram);this.rf.set(state.rf);this.keys.fill(0);
     for(const k of [...Object.keys(integers),'idle','halt','irq1'])this.cpu[k]=state.cpu[k];
@@ -542,7 +542,7 @@ function diagnosticROM() {
   const emit=(...v)=>code.push(...v), movp=(v,p)=>emit(0xa2,v,p), lda=v=>emit(0x22,v), store=a=>emit(0x8b,a>>>8,a&255);
   movp(7,6);emit(0x52,0x70,0x0d);movp(0,24);
   for(const v of [0x38,0x0c,0x06,0x01]){lda(v);store(0x1000);}
-  const text='TI-74  DIAGNOSTIC   KEY:'.padEnd(28)+'---';
+  const text='TI-74  DIAGNOSTICO  TECLA:'.padEnd(28)+'---';
   for(let i=0;i<31;i++){
     if(i===16){lda(0xc0);store(0x1000);}
     lda(text.charCodeAt(i));store(0x1001);
@@ -582,7 +582,7 @@ const symbols={
 };
 let machine=new TI74(), savedMachine=null, savedPaused=false, paused=false, fault='', lastFrame=0, lastPaint=0;
 let typing=null, persisted=false, pending={}, lastPersist=0;
-const active=new Map(), keyQueue=[], ROM_KEY='ti74-html-firmware-v1-en-US', STATE_KEY='ti74-html-state-v1-en-US';
+const active=new Map(), keyQueue=[], ROM_KEY='ti74-html-firmware-v1', STATE_KEY='ti74-html-state-v1';
 // Short matrix pulses avoid the ROM's fast auto-repeat. Host holds repeat in real time.
 const KEY_MODIFIER_CYCLES=40000, KEY_PRESS_CYCLES=80000, KEY_GAP_CYCLES=80000, KEY_REPEAT_DELAY=550, KEY_REPEAT_INTERVAL=100;
 let keyStroke=null;
@@ -673,7 +673,7 @@ function press(source,names,normalized=false){
    if(machine.kind==='empty'){openRoms();return;}
    stopTyping();releaseAll();machine.turnOn();paused=false;fault='';lastFrame=0;notice('');refresh();document.querySelector('.instrument-scroll').focus({preventScroll:true});return;
  }
- if(machine.kind==='empty'){notice('Load ROMs or select Test hardware to get started.');return;}
+ if(machine.kind==='empty'){notice('Carrega as ROMs ou seleciona «Testar hardware» para começar.');return;}
  if(!machine.power||paused||fault||typing||active.has(source))return;
  document.querySelector('.instrument-scroll').focus({preventScroll:true});
  const value={names,normalized,repeatAt:performance.now()+KEY_REPEAT_DELAY};active.set(source,value);
@@ -724,24 +724,24 @@ function draw(){
  }
  for(const el of document.querySelectorAll('[data-segment]'))el.classList.toggle('lit',indicator(+el.dataset.segment));
  const screen=machine.power?machine.lcd.text().trimEnd():'';
- $('lcd').setAttribute('aria-label',screen?'Display: '+screen:'LCD display off');
- if($('technical').open)$('debug').textContent=machine.kind==='empty'?'No machine loaded.':
+ $('lcd').setAttribute('aria-label',screen?'Visor: '+screen:'Visor LCD desligado');
+ if($('technical').open)$('debug').textContent=machine.kind==='empty'?'Sem máquina carregada.':
    'PC '+hex(machine.cpu.pc,4)+'   A '+hex(machine.rf[0])+'   B '+hex(machine.rf[1])+'   SP '+hex(machine.cpu.sp)+'   ST '+hex(machine.cpu.sr)+'\n'+
-   'ROM bank '+machine.bank+'   Instructions '+machine.cpu.instructions.toLocaleString('en-US')+'   '+(machine.cpu.idle?'CPU idle':'CPU active')+'\n'+
-   'Firmware '+machine.fingerprint+'   '+(machine.kind==='diagnostic'?'Original diagnostic':'TI ROM');
+   'Banco ROM '+machine.bank+'   Instruções '+machine.cpu.instructions.toLocaleString('pt-PT')+'   '+(machine.cpu.idle?'CPU em IDLE':'CPU ativa')+'\n'+
+   'Firmware '+machine.fingerprint+'   '+(machine.kind==='diagnostic'?'Diagnóstico original':'ROM TI');
 }
 function refresh(){
  const loaded=machine.kind!=='empty',live=loaded&&machine.power&&!paused&&!fault;
- $('status-text').textContent=fault?'Emulation stopped':!loaded?'Waiting for ROMs':!machine.power?'Off · memory preserved':paused?'Paused':machine.kind==='diagnostic'?'Diagnostic · CPU and LCD':'TI-74 on';
- $('status-dot').classList.toggle('on',live);$('pause').disabled=!loaded||!machine.power||!!fault;$('pause').textContent=paused?'Resume':'Pause';
+ $('status-text').textContent=fault?'Execução interrompida':!loaded?'À espera das ROMs':!machine.power?'Desligada · memória preservada':paused?'Em pausa':machine.kind==='diagnostic'?'Diagnóstico · CPU e LCD':'TI-74 ligada';
+ $('status-dot').classList.toggle('on',live);$('pause').disabled=!loaded||!machine.power||!!fault;$('pause').textContent=paused?'Retomar':'Pausar';
  $('welcome').hidden=loaded;$('save-state').disabled=!loaded||!!typing;$('load-state').disabled=!loaded||!!typing;
  $('send-program').disabled=!live||machine.kind!=='rom'||!!typing;$('stop-typing').hidden=!typing;
  for(const id of ['load-example','undo-example','import-program','replace-program'])$(id).disabled=!!typing;
- $('cpu-info').textContent=loaded?'4 KiB · '+(machine.kind==='rom'?crc32(machine.internal):'diagnostic'):'4 KiB · not loaded';
- $('system-info').textContent=loaded?'32 KiB · '+(machine.kind==='rom'?crc32(machine.system):'empty'):'32 KiB · not loaded';
+ $('cpu-info').textContent=loaded?'4 KiB · '+(machine.kind==='rom'?crc32(machine.internal):'diagnóstico'):'4 KiB · por carregar';
+ $('system-info').textContent=loaded?'32 KiB · '+(machine.kind==='rom'?crc32(machine.system):'vazia'):'32 KiB · por carregar';
  $('cpu-info').classList.toggle('good',loaded);$('system-info').classList.toggle('good',loaded);
- $('cart-info').textContent=machine.cart?'32 KiB · '+crc32(machine.cart):'Not inserted';
- $('diagnostic-again').textContent=savedMachine?'Return to TI-74':'Run separate diagnostic';
+ $('cart-info').textContent=machine.cart?'32 KiB · '+crc32(machine.cart):'Não inserido';
+ $('diagnostic-again').textContent=savedMachine?'Voltar à TI-74':'Executar diagnóstico separado';
  draw();
 }
 function runInput(cycles){
@@ -778,14 +778,14 @@ $('dropzone').onclick=()=>$('rom-files').click();
 function pendingLabels(){
  for(const type of ['internal','system'])if(pending[type]){
    const item=pending[type],known=type==='internal'?item.crc==='55A2F7C0':['019AAA2F','499B69D1'].includes(item.crc);
-   $('pending-'+type).textContent=item.name+'\n'+item.crc+' · '+(known?'Recognized ROM':'Unrecognized version');
+   $('pending-'+type).textContent=item.name+'\n'+item.crc+' · '+(known?'ROM reconhecida':'versão não reconhecida');
  }
  $('boot').disabled=!(pending.internal&&pending.system);
 }
 async function selectRoms(files){
  const errors=[];
  for(const file of files){
-   if(file.size!==4096&&file.size!==32768){errors.push(file.name+': invalid size. Extract the ZIP file and select the 4 and 32 KiB ROMs.');continue;}
+   if(file.size!==4096&&file.size!==32768){errors.push(file.name+': tamanho inválido. Extrai o ZIP e seleciona as ROMs de 4 e 32 KiB.');continue;}
    const data=new Uint8Array(await file.arrayBuffer()),type=file.size===4096?'internal':'system';
    pending[type]={data,name:file.name,crc:crc32(data)};
  }
@@ -797,17 +797,17 @@ for(const event of ['dragenter','dragover'])$('dropzone').addEventListener(event
 for(const event of ['dragleave','drop'])$('dropzone').addEventListener(event,e=>{e.preventDefault();$('dropzone').classList.remove('dragover');});
 $('dropzone').addEventListener('drop',async e=>{try{await selectRoms(e.dataTransfer.files);}catch(error){reportRomError(error);}});
 $('cart-file').onchange=async e=>{
- try{const f=e.target.files[0];if(!f){delete pending.cart;return;}if(!f.size||f.size>32768)throw Error('The cartridge must contain between 1 and 32,768 bytes.');
+ try{const f=e.target.files[0];if(!f){delete pending.cart;return;}if(!f.size||f.size>32768)throw Error('O cartucho deve ter entre 1 e 32768 bytes.');
  const data=new Uint8Array(32768).fill(255);data.set(new Uint8Array(await f.arrayBuffer()));pending.cart={data,name:f.name};$('rom-error').textContent='';}
  catch(error){delete pending.cart;e.target.value='';reportRomError(error);}
 };
 $('font-file').onchange=async e=>{
- try{const f=e.target.files[0];if(!f){delete pending.font;return;}if(f.size!==4096)throw Error('The character ROM must contain 4,096 bytes.');
+ try{const f=e.target.files[0];if(!f){delete pending.font;return;}if(f.size!==4096)throw Error('A ROM de caracteres deve ter 4096 bytes.');
  pending.font={data:new Uint8Array(await f.arrayBuffer()),name:f.name};$('rom-error').textContent='';}
  catch(error){delete pending.font;e.target.value='';reportRomError(error);}
 };
 function encode(bytes){let s='';for(const b of bytes)s+=String.fromCharCode(b);return btoa(s);}
-function decode(text,max){if(typeof text!=='string'||text.length>max*1.4+8)throw Error('Invalid local data.');const s=atob(text);if(s.length>max)throw Error('Local data is too large.');return Uint8Array.from(s,c=>c.charCodeAt(0));}
+function decode(text,max){if(typeof text!=='string'||text.length>max*1.4+8)throw Error('Dados locais inválidos.');const s=atob(text);if(s.length>max)throw Error('Dados locais demasiado grandes.');return Uint8Array.from(s,c=>c.charCodeAt(0));}
 $('boot').onclick=()=>{
  try{
    stopTyping();releaseAll();const next=new TI74();next.load(pending.internal.data,pending.system.data);
@@ -817,10 +817,10 @@ $('boot').onclick=()=>{
    try{localStorage.removeItem(ROM_KEY);localStorage.removeItem(STATE_KEY);}catch{}
    if($('remember').checked){
      try{localStorage.setItem(ROM_KEY,JSON.stringify({internal:encode(machine.internal),system:encode(machine.system),cart:machine.cart?encode(machine.cart):null,font:machine.lcd.cgrom?encode(machine.lcd.cgrom):null}));persisted=true;}
-     catch{notice('The TI-74 has started. This browser could not save the ROMs; use Save state before leaving.');}
+     catch{notice('A TI-74 foi iniciada. Este navegador não permitiu guardar as ROMs; usa «Guardar estado» antes de sair.');}
    }
-   if(!persisted||!$('remember').checked)$('storage-status').textContent='Session stored in memory only. Save the state before closing this page.';
-   else $('storage-status').textContent='ROMs and state saved in this browser. Export the state to keep a separate copy.';
+   if(!persisted||!$('remember').checked)$('storage-status').textContent='Sessão apenas em memória. Guarda o estado antes de fechar esta página.';
+   else $('storage-status').textContent='ROMs e estado guardados neste navegador. Exporta o estado para teres uma cópia independente.';
    $('forget').hidden=!persisted;$('rom-dialog').close();if(!$('remember').checked||persisted)notice('');refresh();document.querySelector('.instrument-scroll').focus({preventScroll:true});
  }catch(e){reportRomError(e);}
 };
@@ -828,9 +828,9 @@ function persistState(){
  const target=savedMachine||machine;
  if(!persisted||target.kind!=='rom'||fault)return;
  try{localStorage.setItem(STATE_KEY,JSON.stringify(target.snapshot()));}
- catch{persisted=false;$('storage-status').textContent='Unable to save automatically. Use Save state.';}
+ catch{persisted=false;$('storage-status').textContent='Não foi possível guardar automaticamente. Usa «Guardar estado».';}
 }
-$('forget').onclick=()=>{try{localStorage.removeItem(ROM_KEY);localStorage.removeItem(STATE_KEY);persisted=false;$('forget').hidden=true;$('storage-status').textContent='Saved data removed from this browser. The current session remains in memory.';}catch{notice('Unable to access browser storage.');}};
+$('forget').onclick=()=>{try{localStorage.removeItem(ROM_KEY);localStorage.removeItem(STATE_KEY);persisted=false;$('forget').hidden=true;$('storage-status').textContent='Dados guardados removidos deste navegador. A sessão atual continua em memória.';}catch{notice('Não foi possível aceder ao armazenamento deste navegador.');}};
 window.addEventListener('pagehide',persistState);
 
 function download(name,text,type='text/plain;charset=utf-8'){
@@ -859,54 +859,54 @@ function filterLibrary(){
  for(const example of visible){
    const button=document.createElement('button');button.type='button';button.className='library-choice';button.dataset.example=example.id;button.setAttribute('aria-controls','library-detail');
    const title=document.createElement('strong');title.textContent=example.id.slice(0,2)+' · '+example.title;
-   const detail=document.createElement('span');detail.textContent=example.level+' · '+example.code.split('\n').length+' lines';
+   const detail=document.createElement('span');detail.textContent=example.level+' · '+example.code.split('\n').length+' linhas';
    button.append(title,detail);button.onclick=()=>selectExample(example);$('library-list').append(button);
  }
- $('library-count').textContent=visible.length+' of '+programLibrary.length+' examples';
+ $('library-count').textContent=visible.length+' de '+programLibrary.length+' exemplos';
  selectExample(visible.find(example=>example.id===selectedExample?.id)||visible[0]||null);
 }
 function editorExample(){return programLibrary.find(example=>example.code.trim()===$('program').value.trim());}
 function updateEditorOrigin(){
- const example=editorExample();$('editor-origin').hidden=!example;$('editor-origin').textContent=example?'Library · '+example.title:'';
+ const example=editorExample();$('editor-origin').hidden=!example;$('editor-origin').textContent=example?'Biblioteca · '+example.title:'';
 }
 $('library-search').oninput=filterLibrary;$('library-category').onchange=filterLibrary;
 $('load-example').onclick=()=>{
  if(typing||!selectedExample)return;
  previousDraft={text:$('program').value,replace:$('replace-program').checked};
  $('program').value=selectedExample.code;$('replace-program').checked=true;$('undo-example').hidden=false;updateEditorOrigin();
- $('typing-status').textContent='Example copied to the editor. Select BASIC and click Send to TI-74. NEW replaces the program on the machine.';
+ $('typing-status').textContent='Exemplo no bloco. Seleciona BASIC e prime «Introduzir na TI-74». NEW substitui o programa que está na máquina.';
  $('program').focus();$('program').setSelectionRange(0,0);$('program').scrollTop=0;
 };
 $('undo-example').onclick=()=>{
  if(typing||!previousDraft)return;
  $('program').value=previousDraft.text;$('replace-program').checked=previousDraft.replace;previousDraft=null;$('undo-example').hidden=true;updateEditorOrigin();
- $('typing-status').textContent='Previous editor text restored. TI-74 memory has not changed.';
+ $('typing-status').textContent='Texto anterior restaurado no bloco. A memória da TI-74 não foi alterada.';
 };
 $('download-example').onclick=()=>{if(selectedExample)download(selectedExample.id+'.bas',selectedExample.code.replace(/\n/g,'\r\n')+'\r\n');};
 $('program').addEventListener('input',updateEditorOrigin);
 filterLibrary();
-$('save-state').onclick=()=>{releaseAll();download('ti74-state.json',JSON.stringify(machine.snapshot()),'application/json');notice('State exported. To restore it, load the same ROMs and cartridge.');};
+$('save-state').onclick=()=>{releaseAll();download('ti74-estado.json',JSON.stringify(machine.snapshot()),'application/json');notice('Estado exportado. Para restaurar, carrega o mesmo conjunto de ROMs e cartucho.');};
 $('load-state').onclick=()=>$('state-file').click();
 $('state-file').onchange=async e=>{
- try{const f=e.target.files[0];if(!f)return;if(f.size>512000)throw Error('The state file is too large.');
- const state=JSON.parse(await f.text());machine.restore(state);stopTyping();releaseAll();fault='';paused=false;lastFrame=0;notice('State restored.');refresh();}
- catch(error){notice('State not restored: '+error.message);}finally{e.target.value='';}
+ try{const f=e.target.files[0];if(!f)return;if(f.size>512000)throw Error('O ficheiro de estado é demasiado grande.');
+ const state=JSON.parse(await f.text());machine.restore(state);stopTyping();releaseAll();fault='';paused=false;lastFrame=0;notice('Estado restaurado.');refresh();}
+ catch(error){notice('Estado não restaurado: '+error.message);}finally{e.target.value='';}
 };
-$('export-program').onclick=()=>download((editorExample()?.id||'ti74-program')+'.bas',$('program').value.replace(/\r?\n/g,'\r\n'));
+$('export-program').onclick=()=>download((editorExample()?.id||'programa-ti74')+'.bas',$('program').value.replace(/\r?\n/g,'\r\n'));
 $('import-program').onclick=()=>$('program-file').click();
 $('program-file').onchange=async e=>{
- try{const f=e.target.files[0];if(!f||typing)return;if(f.size>512000)throw Error('The program exceeds 500 KiB.');const text=(await f.text()).replace(/^\uFEFF/,'').replace(/\r\n?/g,'\n');if(typing)return;$('program').value=text;updateEditorOrigin();notice('Text loaded into the program editor.');}
+ try{const f=e.target.files[0];if(!f||typing)return;if(f.size>512000)throw Error('O programa excede 500 KiB.');const text=(await f.text()).replace(/^\uFEFF/,'').replace(/\r\n?/g,'\n');if(typing)return;$('program').value=text;updateEditorOrigin();notice('Texto carregado no bloco de programas.');}
  catch(error){notice(error.message);}finally{e.target.value='';}
 };
 function characterKeys(c){
  if(c==='\n')return ['ENTER'];if(c===' ')return ['SPACE'];
  if(/[a-zA-Z]/.test(c)){const shifted=(c===c.toUpperCase())!==indicator(2);return shifted?['SHIFT',c.toUpperCase()]:[c.toUpperCase()];}
  if(symbols[c]){const [key,shift]=symbols[c];return shift?['SHIFT',key]:[key];}
- if(KEY[c])return [c];throw Error('Character not supported by the keyboard: '+c);
+ if(KEY[c])return [c];throw Error('Carácter não suportado pelo teclado: '+c);
 }
 function stopTyping(){
  const was=typing;typing=null;release('typing');$('program').readOnly=false;
- if(was)$('typing-status').textContent='Input canceled. Lines already sent remain on the machine.';
+ if(was)$('typing-status').textContent='Introdução cancelada. As linhas já enviadas permanecem na máquina.';
  refresh();
 }
 function typeNext(){
@@ -931,47 +931,47 @@ function advanceTyping(){
  if(typing.phase==='press'||typing.phase==='prepare'){
    const preparing=typing.phase==='prepare';release('typing');const c=preparing?'\n':typing.text[typing.index++];typing.phase='gap';
    typing.deadline=machine.cpu.cycles+(c==='\n'?400000:160000);
-   $('typing-status').textContent=preparing?'Preparing the TI-74 for a new program…':'Entering: '+typing.index+' / '+typing.text.length+' characters.';
+   $('typing-status').textContent=preparing?'A preparar a TI-74 para um novo programa…':'A introduzir: '+typing.index+' / '+typing.text.length+' caracteres.';
  }else typeNext();
 }
 $('send-program').onclick=()=>{
  try{
-   if(!indicator(63))throw Error('First select BASIC mode on the TI-74 using the MODE key.');
+   if(!indicator(63))throw Error('Seleciona primeiro o modo BASIC na TI-74 com a tecla MODE.');
    let text=$('program').value.replace(/\r\n?/g,'\n').replace(/\t/g,' ').replace(/\n+$/,'');
-   if(!text.trim())throw Error('Type or open a program first.');if(text.length>32768)throw Error('Send no more than 32,768 characters at a time.');
+   if(!text.trim())throw Error('Escreve ou abre um programa primeiro.');if(text.length>32768)throw Error('Envia no máximo 32 768 caracteres de cada vez.');
    for(const c of text)characterKeys(c);
    const example=editorExample(),replace=$('replace-program').checked;
-   const completion='Text entered. '+(example?example.instructions:'Press RUN and ENTER to run.');
+   const completion='Texto introduzido. '+(example?example.instructions:'Prime RUN e ENTER para executar.');
    text=(replace?'NEW\n':'')+text+'\n';releaseAll();typing={text,index:0,prepare:replace?['BREAK','CLR']:[],completion};$('program').readOnly=true;notice('');refresh();typeNext();
  }catch(e){notice(e.message);}
 };
 $('stop-typing').onclick=stopTyping;
 function diagnostic(){
  stopTyping();releaseAll();
- if(savedMachine){machine=savedMachine;savedMachine=null;paused=savedPaused;notice('TI-74 session resumed.');}
- else{if(machine.kind==='rom'){savedMachine=machine;savedPaused=paused;}const r=diagnosticROM();machine=new TI74();machine.load(r.internal,r.system,'diagnostic');paused=false;notice('Diagnostic without BASIC. Press keys to test the keyboard matrix; the last three characters show the row and bitmask.');}
+ if(savedMachine){machine=savedMachine;savedMachine=null;paused=savedPaused;notice('Sessão TI-74 retomada.');}
+ else{if(machine.kind==='rom'){savedMachine=machine;savedPaused=paused;}const r=diagnosticROM();machine=new TI74();machine.load(r.internal,r.system,'diagnostic');paused=false;notice('Diagnóstico sem BASIC. Prime teclas para testar a matriz; os três últimos caracteres mostram a linha e a máscara.');}
  fault='';lastFrame=0;refresh();
 }
 $('diagnostic').onclick=diagnostic;$('diagnostic-again').onclick=diagnostic;
-$('copy-display').onclick=async()=>{try{await navigator.clipboard.writeText(machine.lcd.text().trimEnd());notice('Display text copied.');}catch{notice('Display: '+machine.lcd.text().trimEnd());}};
+$('copy-display').onclick=async()=>{try{await navigator.clipboard.writeText(machine.lcd.text().trimEnd());notice('Texto do visor copiado.');}catch{notice('Visor: '+machine.lcd.text().trimEnd());}};
 $('license-copy').textContent=$('emulator-core').textContent.match(/\/\*([\s\S]*?)\*\//)[1].trim();
 try{
  const embedded=JSON.parse($('embedded-roms').textContent);
  const saved=embedded?JSON.stringify(embedded):localStorage.getItem(ROM_KEY);
  if(saved){
    const rom=JSON.parse(saved);machine.load(decode(rom.internal,4096),decode(rom.system,32768));
-   if(rom.cart){const cart=decode(rom.cart,32768);if(cart.length!==32768)throw Error('Invalid saved cartridge.');machine.cart=cart;}
-   if(rom.font){const font=decode(rom.font,4096);if(font.length!==4096)throw Error('Invalid saved font.');machine.lcd.cgrom=font;}
+   if(rom.cart){const cart=decode(rom.cart,32768);if(cart.length!==32768)throw Error('Cartucho guardado inválido.');machine.cart=cart;}
+   if(rom.font){const font=decode(rom.font,4096);if(font.length!==4096)throw Error('Fonte guardada inválida.');machine.lcd.cgrom=font;}
    persisted=true;
    try{
      const state=localStorage.getItem(STATE_KEY);
      if(state){const parsed=JSON.parse(state);if(parsed.firmware===machine.fingerprint&&parsed.cart===(machine.cart?crc32(machine.cart):null))machine.restore(parsed);}
-   }catch(e){notice('ROMs loaded; the previous state could not be recovered. Save the state manually.');persisted=false;}
+   }catch(e){notice('ROMs carregadas; o estado anterior não pôde ser recuperado. Guarda o estado manualmente.');persisted=false;}
    $('remember').checked=persisted;$('forget').hidden=!persisted;
-   $('storage-status').textContent=persisted?(embedded?'ROMs are embedded in this HTML file. State is saved in this browser.':'Session restored from this browser. State is saved automatically.'):'Session stored in memory. Use Save state before closing.';
-   if(embedded){$('firmware-note').textContent='This copy includes ROMs supplied by the owner.';$('forget').textContent='Clear saved state';}
+   $('storage-status').textContent=persisted?(embedded?'ROMs incorporadas neste HTML. O estado é guardado neste navegador.':'Sessão recuperada deste navegador. O estado é guardado automaticamente.'):'Sessão em memória. Usa «Guardar estado» antes de fechar.';
+   if(embedded){$('firmware-note').textContent='Esta cópia inclui as ROMs fornecidas pelo proprietário.';$('forget').textContent='Limpar estado guardado';}
  }
-}catch(e){notice('Unable to restore the saved session: '+e.message+' Load the ROMs again.');machine=new TI74();}
+}catch(e){notice('Não foi possível recuperar a sessão guardada: '+e.message+' Carrega as ROMs novamente.');machine=new TI74();}
 globalThis.TI74App={get machine(){return machine;},diagnostic,selectRoms,characterKeys,get paused(){return paused;}};
 refresh();requestAnimationFrame(frame);
 </script>
