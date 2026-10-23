@@ -1,0 +1,14 @@
+.reference/
+.qa/
+node_modules/
+*.local.json
+
+# Private firmware packages and locally supplied ROMs must not be committed.
+/TI-74.html
+/TI-74.en-US.html
+*.ic1
+*.ic2
+*.rom
+*.bin
+*.cg
+*.zip

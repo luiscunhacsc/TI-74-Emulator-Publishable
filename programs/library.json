@@ -1,0 +1,455 @@
+{
+  "version": 1,
+  "reference": "https://es.scribd.com/document/500278634/TI-74-Programming-Reference-Guide",
+  "programs": [
+    {
+      "id": "01-hello",
+      "title": "Olá, TI-74",
+      "category": "Primeiros passos",
+      "level": "Inicial",
+      "summary": "O primeiro programa: escrever uma mensagem e mantê-la no visor.",
+      "concepts": [
+        "REM",
+        "PRINT",
+        "PAUSE",
+        "END",
+        ":"
+      ],
+      "instructions": "Prime RUN e ENTER. Lê a mensagem; ENTER termina a pausa.",
+      "expected": "OLA, TI-74!",
+      "notes": [
+        "10 é um comentário; não produz saída.",
+        "20 reúne PRINT e PAUSE na mesma linha, separados por dois-pontos.",
+        "PAUSE permite ler o resultado antes de continuar."
+      ],
+      "experiment": "Muda o texto entre aspas. Usa até 31 caracteres para caber no visor.",
+      "code": "10 REM PRIMEIRO PROGRAMA\n20 PRINT \"OLA, TI-74!\":PAUSE\n30 END"
+    },
+    {
+      "id": "02-arithmetic",
+      "title": "Expressões e prioridades",
+      "category": "Primeiros passos",
+      "level": "Inicial",
+      "summary": "Compara operações com e sem parênteses e combina potências com raízes.",
+      "concepts": [
+        "LET",
+        "+",
+        "*",
+        "^",
+        "SQR",
+        "()"
+      ],
+      "instructions": "RUN e ENTER. Prime ENTER entre os dois ecrãs e no final.",
+      "expected": "Primeiro: A=14 e B=20. Depois: C=41.",
+      "notes": [
+        "20 usa LET; nas linhas seguintes a atribuição dispensa essa palavra.",
+        "A multiplica antes de somar. B força a soma com parênteses.",
+        "C combina 2 elevado a 5 com a raiz de 81."
+      ],
+      "experiment": "Troca 2^5 por 2^8 e prevê o novo C antes de executar.",
+      "code": "10 REM EXPRESSOES\n20 LET A=2+3*4\n30 B=(2+3)*4\n40 C=2^5+SQR(81)\n50 PRINT \"A=\";A;\" B=\";B:PAUSE\n60 PRINT \"C=\";C:PAUSE\n70 END"
+    },
+    {
+      "id": "03-sum",
+      "title": "Somar de 1 a 10",
+      "category": "Primeiros passos",
+      "level": "Inicial",
+      "summary": "Um contador e um acumulador mostram a estrutura de um ciclo.",
+      "concepts": [
+        "FOR",
+        "TO",
+        "NEXT",
+        "variáveis"
+      ],
+      "instructions": "RUN e ENTER. O total fica visível até premires ENTER.",
+      "expected": "SOMA=55",
+      "notes": [
+        "20 inicializa S antes do ciclo.",
+        "30–50 visitam os valores de I entre 1 e 10 e acumulam-nos em S.",
+        "Depois de terminar, escreve S e ENTER para consultar a variável."
+      ],
+      "experiment": "Muda o limite para 100. O total deve passar a 5050.",
+      "code": "10 REM ACUMULADOR\n20 S=0\n30 FOR I=1 TO 10\n40 S=S+I\n50 NEXT I\n60 PRINT \"SOMA=\";S:PAUSE\n70 END"
+    },
+    {
+      "id": "04-countdown",
+      "title": "Contagem decrescente",
+      "category": "Primeiros passos",
+      "level": "Inicial",
+      "summary": "Um incremento negativo percorre um ciclo em ordem inversa.",
+      "concepts": [
+        "FOR",
+        "STEP",
+        "NEXT",
+        "PAUSE"
+      ],
+      "instructions": "RUN e ENTER. Prime ENTER para passar por 3, 2, 1 e PARTIDA.",
+      "expected": "3 → 2 → 1 → PARTIDA",
+      "notes": [
+        "20 usa STEP -1 para diminuir o contador.",
+        "A pausa está dentro do ciclo: cada número espera por ENTER."
+      ],
+      "experiment": "Começa em 10 e usa STEP -2. Que valores aparecem?",
+      "code": "10 REM CICLO INVERSO\n20 FOR I=3 TO 1 STEP -1\n30 PRINT I:PAUSE\n40 NEXT I\n50 PRINT \"PARTIDA\":PAUSE\n60 END"
+    },
+    {
+      "id": "05-temperature",
+      "title": "Conversor de temperatura",
+      "category": "Entrada e decisões",
+      "level": "Inicial",
+      "summary": "Pede um valor ao utilizador e calcula uma transformação.",
+      "concepts": [
+        "INPUT",
+        "variáveis",
+        "expressões"
+      ],
+      "instructions": "RUN e ENTER. Em CELSIUS? escreve 25 e ENTER. ENTER fecha o resultado.",
+      "expected": "Com 25: F=77. Com -40: F=-40.",
+      "notes": [
+        "20 apresenta uma pergunta e guarda a resposta em C.",
+        "30 aplica F=C×9/5+32; o ponto é o separador decimal."
+      ],
+      "experiment": "Converte no sentido inverso: pede F e calcula (F-32)*5/9.",
+      "code": "10 REM CELSIUS PARA FAHRENHEIT\n20 INPUT \"CELSIUS? \";C\n30 F=C*9/5+32\n40 PRINT \"F=\";F:PAUSE\n50 END"
+    },
+    {
+      "id": "06-decisions",
+      "title": "Validar e decidir: par ou ímpar",
+      "category": "Entrada e decisões",
+      "level": "Intermédio",
+      "summary": "Valida um inteiro e escolhe uma de duas respostas.",
+      "concepts": [
+        "IF",
+        "THEN",
+        "ELSE",
+        "OR",
+        "INT",
+        "GOTO"
+      ],
+      "instructions": "RUN e ENTER. Introduz um inteiro entre 0 e 100. Testa também -1 ou 2.5; ENTER permite tentar novamente.",
+      "expected": "7 → IMPAR; 8 → PAR. Valores fora do domínio mostram INTEIRO DE 0 A 100.",
+      "notes": [
+        "30 rejeita negativos, valores acima de 100 e números com parte decimal.",
+        "40 compara N com o dobro da sua metade inteira.",
+        "GOTO 20 volta à pergunta após uma entrada inválida."
+      ],
+      "experiment": "Altera o teste para identificar múltiplos de 3.",
+      "code": "10 REM VALIDAR UM INTEIRO\n20 INPUT \"NUMERO 0 A 100? \";N\n30 IF N<0 OR N>100 OR N<>INT(N) THEN 80\n40 IF N=2*INT(N/2) THEN PRINT \"PAR\" ELSE PRINT \"IMPAR\"\n50 PAUSE\n60 GOTO 100\n80 PRINT \"INTEIRO DE 0 A 100\":PAUSE\n90 GOTO 20\n100 END"
+    },
+    {
+      "id": "07-strings",
+      "title": "Cortar, juntar e procurar texto",
+      "category": "Texto",
+      "level": "Intermédio",
+      "summary": "Explora as operações de texto próprias deste BASIC.",
+      "concepts": [
+        "$",
+        "&",
+        "SEG$",
+        "LEN",
+        "POS"
+      ],
+      "instructions": "RUN e ENTER. ENTER avança entre os dois resultados.",
+      "expected": "BASIC / ALC; depois LEN=8 e POS=5.",
+      "notes": [
+        "A$ e B$ são variáveis de texto.",
+        "30 constrói B$ com duas partes de A$ e o operador &.",
+        "50 mede o texto e procura CAL a partir da posição 1."
+      ],
+      "experiment": "Muda BASICALC para CALCULADORA e adapta os cortes.",
+      "code": "10 REM MANIPULAR TEXTO\n20 A$=\"BASICALC\"\n30 B$=SEG$(A$,1,5)&\" / \"&SEG$(A$,6,3)\n40 PRINT B$:PAUSE\n50 PRINT \"LEN=\";LEN(A$);\" POS=\";POS(A$,\"CAL\",1):PAUSE\n60 END"
+    },
+    {
+      "id": "08-ascii",
+      "title": "Entre texto, códigos e números",
+      "category": "Texto",
+      "level": "Intermédio",
+      "summary": "Converte caracteres em códigos e texto numérico em valores.",
+      "concepts": [
+        "ASC",
+        "CHR$",
+        "VAL",
+        "STR$",
+        "&"
+      ],
+      "instructions": "RUN e ENTER. Prime ENTER para ver cada resultado.",
+      "expected": "ASCII=65; LETRA=B; DOBRO=25.",
+      "notes": [
+        "ASC transforma A no seu código; CHR$ transforma o código seguinte em B.",
+        "VAL converte 12.5 em número antes de multiplicar.",
+        "STR$ permite juntar o resultado numérico a uma mensagem."
+      ],
+      "experiment": "Troca A por Z e observa qual é o carácter seguinte.",
+      "code": "10 REM CONVERSOES\n20 A=ASC(\"A\")\n30 B$=CHR$(A+1)\n40 N=VAL(\"12.5\")*2\n50 PRINT \"ASCII=\";A:PAUSE\n60 PRINT \"LETRA=\";B$:PAUSE\n70 PRINT \"DOBRO=\"&STR$(N):PAUSE\n80 END"
+    },
+    {
+      "id": "09-data",
+      "title": "Ler e reler uma tabela",
+      "category": "Dados e algoritmos",
+      "level": "Inicial",
+      "summary": "Armazena uma pequena tabela no programa e reinicia a sua leitura.",
+      "concepts": [
+        "DATA",
+        "READ",
+        "RESTORE",
+        "FOR"
+      ],
+      "instructions": "RUN e ENTER. ENTER passa da soma ao primeiro elemento relido.",
+      "expected": "TOTAL=30; PRIMEIRO=4.",
+      "notes": [
+        "20 contém quatro dados; READ consome um de cada vez.",
+        "RESTORE 20 volta ao início da tabela.",
+        "DATA fica numa linha própria."
+      ],
+      "experiment": "Altera os quatro dados e verifica o novo total.",
+      "code": "10 REM TABELA DE DADOS\n20 DATA 4,7,9,10\n30 S=0\n40 FOR I=1 TO 4\n50 READ X\n60 S=S+X\n70 NEXT I\n80 PRINT \"TOTAL=\";S:PAUSE\n90 RESTORE 20\n100 READ X\n110 PRINT \"PRIMEIRO=\";X:PAUSE\n120 END"
+    },
+    {
+      "id": "10-statistics",
+      "title": "Média e desvio padrão",
+      "category": "Dados e algoritmos",
+      "level": "Intermédio",
+      "summary": "Guarda amostras num vetor e calcula medidas descritivas em duas passagens.",
+      "concepts": [
+        "DIM",
+        "READ",
+        "FOR",
+        "SQR",
+        "^"
+      ],
+      "instructions": "RUN e ENTER. ENTER alterna entre média e desvio padrão populacional.",
+      "expected": "MEDIA=5; DESVIO=2.",
+      "notes": [
+        "20 reserva A(0) até A(8); este exemplo usa os índices 1 a 8.",
+        "100–120 acumulam os quadrados dos desvios à média.",
+        "130 divide por 8: é o desvio populacional, não o amostral."
+      ],
+      "experiment": "Para o desvio amostral dos mesmos dados, divide por 7 antes de SQR.",
+      "code": "10 REM ESTATISTICA POPULACIONAL\n20 DIM A(8)\n30 DATA 2,4,4,4,5,5,7,9\n40 S=0\n50 FOR I=1 TO 8\n60 READ A(I)\n70 S=S+A(I)\n80 NEXT I\n90 M=S/8:V=0\n100 FOR I=1 TO 8\n110 V=V+(A(I)-M)^2\n120 NEXT I\n130 D=SQR(V/8)\n140 PRINT \"MEDIA=\";M:PAUSE\n150 PRINT \"DESVIO=\";D:PAUSE\n160 END"
+    },
+    {
+      "id": "11-matrix",
+      "title": "Uma matriz 2 × 2",
+      "category": "Dados e algoritmos",
+      "level": "Intermédio",
+      "summary": "Usa dois índices e ciclos aninhados para calcular um determinante.",
+      "concepts": [
+        "DIM",
+        "FOR",
+        "NEXT",
+        "DATA",
+        "índices"
+      ],
+      "instructions": "RUN e ENTER. ENTER termina a apresentação do determinante.",
+      "expected": "DET=-2 para a matriz [1, 2; 3, 4].",
+      "notes": [
+        "20 reserva uma matriz; são usados os índices 1 e 2 em cada dimensão.",
+        "40–80 preenchem uma linha de cada vez.",
+        "90 calcula a diagonal principal menos a diagonal secundária."
+      ],
+      "experiment": "Usa os dados 1,0,0,1: a matriz identidade tem determinante 1.",
+      "code": "10 REM DETERMINANTE 2 POR 2\n20 DIM A(2,2)\n30 DATA 1,2,3,4\n40 FOR I=1 TO 2\n50 FOR J=1 TO 2\n60 READ A(I,J)\n70 NEXT J\n80 NEXT I\n90 D=A(1,1)*A(2,2)-A(1,2)*A(2,1)\n100 PRINT \"DET=\";D:PAUSE\n110 END"
+    },
+    {
+      "id": "12-gosub",
+      "title": "Reutilizar uma sub-rotina",
+      "category": "Estrutura",
+      "level": "Intermédio",
+      "summary": "Calcula duas hipotenusas usando o mesmo bloco de código.",
+      "concepts": [
+        "GOSUB",
+        "RETURN",
+        "GOTO",
+        "SQR"
+      ],
+      "instructions": "RUN e ENTER. ENTER avança da primeira hipotenusa para a segunda.",
+      "expected": "H1=5; H2=13.",
+      "notes": [
+        "GOSUB 200 visita a sub-rotina e RETURN regressa à instrução seguinte.",
+        "A, B e H são partilhadas com o programa principal.",
+        "GOTO 900 evita entrar novamente na sub-rotina por sequência."
+      ],
+      "experiment": "Muda o segundo par para 8 e 15. A hipotenusa será 17.",
+      "code": "10 REM HIPOTENUSA REUTILIZAVEL\n20 A=3:B=4:GOSUB 200\n30 PRINT \"H1=\";H:PAUSE\n40 A=5:B=12:GOSUB 200\n50 PRINT \"H2=\";H:PAUSE\n60 GOTO 900\n200 H=SQR(A^2+B^2)\n210 RETURN\n900 END"
+    },
+    {
+      "id": "13-subprogram",
+      "title": "Subprograma com parâmetros",
+      "category": "Estrutura",
+      "level": "Avançado",
+      "summary": "Encapsula uma operação num subprograma com nome e argumentos.",
+      "concepts": [
+        "CALL",
+        "SUB",
+        "SUBEND",
+        "parâmetros"
+      ],
+      "instructions": "RUN e ENTER. Lê o resultado e prime ENTER.",
+      "expected": "DOBRO=14",
+      "notes": [
+        "30 passa A e B ao subprograma DOBRO.",
+        "100–120 usam X e Y como parâmetros; a atribuição a Y devolve o resultado em B.",
+        "O subprograma fica depois do END do programa principal."
+      ],
+      "experiment": "Chama DOBRO outra vez, usando B como entrada e outra variável como saída.",
+      "code": "10 REM SUBPROGRAMA COM PARAMETROS\n20 A=7:B=0\n30 CALL DOBRO(A,B)\n40 PRINT \"DOBRO=\";B:PAUSE\n50 END\n100 SUB DOBRO(X,Y)\n110 Y=2*X\n120 SUBEND"
+    },
+    {
+      "id": "14-science",
+      "title": "Ângulos e logaritmos",
+      "category": "Ciência",
+      "level": "Intermédio",
+      "summary": "Compara graus com radianos e verifica funções inversas.",
+      "concepts": [
+        "DEG",
+        "RAD",
+        "SIN",
+        "PI",
+        "LOG",
+        "LN",
+        "EXP"
+      ],
+      "instructions": "RUN e ENTER. ENTER avança pelos três ecrãs. O programa repõe DEG antes de terminar.",
+      "expected": "GRAUS=.5; RADIANOS=.5; LOG=3 e LNEXP=2.",
+      "notes": [
+        "DEG e RAD tornam explícita a unidade antes de calcular SIN.",
+        "PI/6 radianos corresponde a 30 graus.",
+        "LOG(1000) usa base 10; LN desfaz EXP."
+      ],
+      "experiment": "Compara SIN(90) em DEG com SIN(PI/2) em RAD.",
+      "code": "10 REM FUNCOES CIENTIFICAS\n20 DEG\n30 A=SIN(30)\n40 RAD\n50 B=SIN(PI/6)\n60 C=LOG(1000):D=LN(EXP(2))\n70 DEG\n80 PRINT \"GRAUS=\";A:PAUSE\n90 PRINT \"RADIANOS=\";B:PAUSE\n100 PRINT \"LOG=\";C;\" LNEXP=\";D:PAUSE\n110 END"
+    },
+    {
+      "id": "15-formatting",
+      "title": "Formatar números",
+      "category": "Visor e interação",
+      "level": "Intermédio",
+      "summary": "Controla as casas decimais com um formato guardado numa linha IMAGE.",
+      "concepts": [
+        "IMAGE",
+        "PRINT USING",
+        "casas decimais"
+      ],
+      "instructions": "RUN e ENTER. ENTER passa de 12.50 para 3.14.",
+      "expected": "12.50; 3.14, alinhados no mesmo campo.",
+      "notes": [
+        "100 define o formato e fica numa linha própria.",
+        "PRINT USING reutiliza o mesmo formato para dois números.",
+        "O formato muda a apresentação; não altera o valor guardado em A."
+      ],
+      "experiment": "Troca ###.## por ###.### e observa os zeros e o arredondamento.",
+      "code": "10 REM DUAS CASAS DECIMAIS\n20 A=12.5\n30 PRINT USING 100,A:PAUSE\n40 A=PI\n50 PRINT USING 100,A:PAUSE\n60 GOTO 200\n100 IMAGE \"###.##\"\n200 END"
+    },
+    {
+      "id": "16-dice",
+      "title": "Lançar dois dados",
+      "category": "Ciência",
+      "level": "Intermédio",
+      "summary": "Transforma números pseudoaleatórios em inteiros de 1 a 6.",
+      "concepts": [
+        "RANDOMIZE",
+        "RND",
+        "INT"
+      ],
+      "instructions": "RUN e ENTER. Observa os dois dados e depois a soma, premindo ENTER.",
+      "expected": "Cada dado pertence a 1…6; a soma pertence a 2…12. A semente 74 permite repetir a experiência.",
+      "notes": [
+        "20 fixa a semente para tornar a demonstração reprodutível.",
+        "INT(6*RND)+1 transforma uma fração num resultado de dado.",
+        "RND é usado sem parênteses."
+      ],
+      "experiment": "Altera a semente. Para um dado de 20 faces, troca 6 por 20.",
+      "code": "10 REM DOIS DADOS\n20 RANDOMIZE 74\n30 A=INT(6*RND)+1\n40 B=INT(6*RND)+1\n50 S=A+B\n60 PRINT \"DADOS=\";A;B:PAUSE\n70 PRINT \"SOMA=\";S:PAUSE\n80 END"
+    },
+    {
+      "id": "17-sorting",
+      "title": "Ordenar cinco valores",
+      "category": "Dados e algoritmos",
+      "level": "Avançado",
+      "summary": "Uma ordenação por trocas combina vetores, ciclos e decisões.",
+      "concepts": [
+        "DIM",
+        "FOR",
+        "IF",
+        "THEN",
+        "troca"
+      ],
+      "instructions": "RUN e ENTER. Prime ENTER para percorrer os cinco valores ordenados.",
+      "expected": "1 → 2 → 4 → 7 → 9",
+      "notes": [
+        "40–60 carregam os dados no vetor.",
+        "70–110 comparam vizinhos e usam T como variável temporária na troca.",
+        "O limite 5-I reduz o trabalho em cada passagem."
+      ],
+      "experiment": "Troca > por < na linha 90 para ordenar por ordem decrescente.",
+      "code": "10 REM ORDENACAO POR TROCAS\n20 DIM A(5)\n30 DATA 9,2,7,1,4\n40 FOR I=1 TO 5\n50 READ A(I)\n60 NEXT I\n70 FOR I=1 TO 4\n80 FOR J=1 TO 5-I\n90 IF A(J)>A(J+1) THEN T=A(J):A(J)=A(J+1):A(J+1)=T\n100 NEXT J\n110 NEXT I\n120 FOR I=1 TO 5\n130 PRINT A(I):PAUSE\n140 NEXT I\n150 END"
+    },
+    {
+      "id": "18-display",
+      "title": "Posicionar texto no LCD",
+      "category": "Visor e interação",
+      "level": "Intermédio",
+      "summary": "Constrói uma barra textual e escreve a partir de uma coluna escolhida.",
+      "concepts": [
+        "DISPLAY",
+        "AT",
+        "ERASE ALL",
+        "RPT$",
+        ";"
+      ],
+      "instructions": "RUN e ENTER. Lê o título e a barra; ENTER avança para a mensagem posicionada na coluna 8.",
+      "expected": "TI-74 seguido de oito asteriscos; depois COLUNA 8 começa na oitava posição.",
+      "notes": [
+        "20 limpa a linha; o ponto e vírgula conserva o conteúdo para a próxima escrita.",
+        "30 coloca a barra a partir da coluna 10.",
+        "RPT$ cria os oito asteriscos sem os escrever um a um."
+      ],
+      "experiment": "Troca 8 por 15 em RPT$ e desloca a barra com AT.",
+      "code": "10 REM POSICOES NO LCD\n20 DISPLAY ERASE ALL,\"TI-74\";\n30 DISPLAY AT(10),RPT$(\"*\",8):PAUSE\n40 DISPLAY ERASE ALL,\"\";\n50 DISPLAY AT(8),\"COLUNA 8\":PAUSE\n60 END"
+    },
+    {
+      "id": "19-keyboard",
+      "title": "Ler uma tecla sem ENTER",
+      "category": "Visor e interação",
+      "level": "Intermédio",
+      "summary": "Uma interação direta mostra o carácter recebido e o respetivo código.",
+      "concepts": [
+        "KEY$",
+        "ASC",
+        "PRINT"
+      ],
+      "instructions": "RUN e ENTER. Em PRIME UMA LETRA, prime A sem ENTER. Depois usa ENTER para avançar pelos resultados.",
+      "expected": "TECLA=A e CODIGO=65 em maiúsculas; a minúscula a tem código 97.",
+      "notes": [
+        "30 espera por um carácter do teclado.",
+        "A resposta não precisa de ENTER.",
+        "O código depende da letra e do estado de maiúsculas da TI-74."
+      ],
+      "experiment": "Experimenta um algarismo ou um sinal de pontuação.",
+      "code": "10 REM ENTRADA DE UMA TECLA\n20 PRINT \"PRIME UMA LETRA\"\n30 A$=KEY$\n40 PRINT \"TECLA=\";A$:PAUSE\n50 PRINT \"CODIGO=\";ASC(A$):PAUSE\n60 END"
+    },
+    {
+      "id": "20-newton",
+      "title": "Aproximar uma raiz",
+      "category": "Ciência",
+      "level": "Avançado",
+      "summary": "Implementa o método de Newton e compara o resultado com SQR.",
+      "concepts": [
+        "INPUT",
+        "ABS",
+        "IF",
+        "GOTO",
+        "iteração"
+      ],
+      "instructions": "RUN e ENTER. Introduz 2; ENTER avança da aproximação para SQR(2). Só são aceites valores entre 0 e 1000000, excluindo zero.",
+      "expected": "Com 2: cerca de 1.414213562 nos dois ecrãs. Com 81: 9.",
+      "notes": [
+        "20–30 validam o domínio usado nesta demonstração.",
+        "60 calcula uma aproximação a partir da anterior.",
+        "70–90 repetem até a diferença ser pequena ou se atingirem 40 iterações."
+      ],
+      "experiment": "Muda a tolerância 1E-9 e consulta I após o programa para comparar o número de iterações.",
+      "code": "10 REM RAIZ PELO METODO DE NEWTON\n20 INPUT \"NUMERO POSITIVO? \";N\n30 IF N<=0 OR N>1000000 THEN 20\n40 X=N:I=0\n50 P=X\n60 X=(X+N/X)/2\n70 I=I+1\n80 IF ABS(X-P)<1E-9 THEN 110\n90 IF I<40 THEN 50\n110 PRINT \"NEWTON=\";X:PAUSE\n120 PRINT \"SQR=\";SQR(N):PAUSE\n130 END"
+    }
+  ]
+}
