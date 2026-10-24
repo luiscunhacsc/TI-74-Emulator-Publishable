@@ -4,7 +4,7 @@
 
 Rebuild and check the public package with `powershell -File tools/release-public.ps1`. It uses firmware-free sources, preserves the license, and packages only five approved files. `node tools/public.cjs --check` checks generated public files. The private editions remain separate.
 
-Open **[TI-74.en-US.html](TI-74.en-US.html)** directly in Chrome, Edge, or Firefox. This single file contains the interface, emulator, English program library, and the same owner-supplied ROMs as the Portuguese edition. No server, installation, or internet connection is needed.
+Open **[TI-74.EN-US.html](TI-74.EN-US.html)** directly in Chrome, Edge, or Firefox. This single file contains the interface, emulator, English program library, and the same owner-supplied ROMs as the Portuguese edition. No server, installation, or internet connection is needed.
 
 On first startup, the display shows `W30 Initialized`. Press **CLR** to begin. The initial mode is BASIC; **MODE** switches to CALC. In BASIC, type `2+2` and press **ENTER**. In CALC, use **SHIFT + ENTER** for `=`.
 
